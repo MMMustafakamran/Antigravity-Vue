@@ -1,0 +1,16 @@
+vue/google-antigravity
+vue/google-antigravity/agentic-chat-ui
+vue/google-antigravity/build-with-agents
+vue/google-antigravity/community-frameworks
+vue/google-antigravity/frontend-tools
+vue/google-antigravity/intelligence/analytics
+vue/google-antigravity/intelligence/channels
+vue/google-antigravity/intelligence/memories
+vue/google-antigravity/intelligence/overview
+vue/google-antigravity/intelligence/standalone-collector
+vue/google-antigravity/intelligence/trajectories
+vue/google-antigravity/learning
+vue/google-antigravity/multi-agent/subagents
+vue/google-antigravity/quickstart
+vue/google-antigravity/using-these-docs
+vue/google-antigravity/webmcp
