@@ -266,12 +266,19 @@ jobs:
           for hp in 8141/health 8140/ 5140/; do
             port=${hp%%/*}; path=/${hp#*/}
             ok=
-            for i in $(seq 1 120); do
+            tries=120; case "$port" in 8???) tries=48 ;; esac   # a dead backend costs 4 min, not 10
+            for i in $(seq 1 $tries); do
               if [ "$path" = "/" ]; then curl -s -o /dev/null "http://localhost:$port/" && ok=1 && break
               else curl -sf -o /dev/null "http://localhost:$port$path" && ok=1 && break; fi
               sleep 5
             done
-            if [ -z "$ok" ]; then echo "::error::server on :$port did not come up"; tail -n 40 logs/*.log; exit 1; fi
+            if [ -z "$ok" ]; then
+              # The frontend is needed by every page; a backend only by its own pages (their clips
+              # then show the real error, e.g. a doc import that no longer installs).
+              case "$port" in 3???|5???) echo "::error::frontend :$port did not come up"; tail -n 40 logs/*.log; exit 1 ;; esac
+              echo "::warning::server on :$port did not come up; pages that use it will show the error"; tail -n 40 logs/*.log
+              continue
+            fi
             echo "up: :$port$path"
           done
 
