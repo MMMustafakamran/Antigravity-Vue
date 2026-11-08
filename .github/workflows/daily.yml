@@ -140,10 +140,13 @@ jobs:
           cache-dependency-path: |
             my-copilot-app/package-lock.json
             autorecorder/package-lock.json
-      - uses: astral-sh/setup-uv@v6
-        with:
-          enable-cache: true
-          cache-dependency-glob: backend/uv.lock
+      # uv from PyPI: astral-sh/setup-uv kept failing on runners (504 on the release lookup,
+      # 300 s cache-lock timeouts). pip + PyPI is one plain download, retried.
+      - name: Install uv (PyPI)
+        run: |
+          for i in 1 2 3; do python3 -m pip install --user --quiet "uv==0.9.*" && break; echo "uv install attempt $i failed; retrying"; sleep 10; done
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/uv" --version
       - name: Sync backend (uv, python from pyproject)
         run: cd backend && uv sync
 
