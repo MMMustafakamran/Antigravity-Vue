@@ -55,6 +55,38 @@ if (unknown.length) console.error(`unknown page id(s): ${unknown.join(', ')}`);
 if (!pages.length) { console.error('nothing to probe'); process.exit(2); }
 
 const ERROR_TEXT = /error|failed|unable to|not found|exception|cannot|could not|invalid input/i;
+// Chat-scoped selectors first (CopilotKit v2 test ids, then v1 classes), the repo's generic ones
+// last: a generic `input[type="text"]` can be the page's own form (e.g. a Notes box), and
+// `.copilotKitMessage:not(:first-child)` can be the user's own bubble.
+const INPUT_SEL = [
+  '[data-testid="copilot-chat-textarea"]',
+  '[data-testid="copilot-chat-input"] textarea',
+  '[data-testid="copilot-chat-input"] [contenteditable="true"]',
+  '.copilotKitInput textarea',
+  SELECTORS.chatInput,
+];
+const REPLY_SEL = ['[data-testid="copilot-assistant-message"]', '.copilotKitAssistantMessage', SELECTORS.assistantMessage];
+const USER_SEL = '[data-testid="copilot-user-message"], .copilotKitUserMessage';
+
+/** The visible chat composer (re-resolved each time: the welcome screen swaps it after the first send). */
+async function chatInput(page: any) {
+  for (const s of INPUT_SEL) {
+    const l = page.locator(s);
+    const n = await l.count().catch(() => 0);
+    for (let i = 0; i < n; i++) if (await l.nth(i).isVisible().catch(() => false)) return l.nth(i);
+  }
+  return null;
+}
+
+/** Last assistant message that isn't the user's own prompt echoed back. */
+async function lastReply(page: any, probeText: string): Promise<string> {
+  for (const s of REPLY_SEL) {
+    const texts: string[] = await page.locator(s).evaluateAll((els: any[]) => els.map((e) => (e.innerText || '').trim())).catch(() => []);
+    const good = texts.filter((t) => t && !t.includes(probeText));
+    if (good.length) return good[good.length - 1];
+  }
+  return '';
+}
 const outRoot = join(cwd, 'videos', 'probe');
 const browser = await chromium.launch({ headless: !flag('headed') });
 
@@ -80,43 +112,61 @@ async function probe(p: any) {
     await page.goto(demoUrlFor(p.route ?? ''), { waitUntil: 'domcontentloaded', timeout: 120000 });
     let n = 0;
     shotTimer = setInterval(() => { page.screenshot({ path: join(out, 'shots', `${String(n += 5).padStart(3, '0')}s.png`) }).catch(() => {}); }, 5000);
-    const input = page.locator(SELECTORS.chatInput).first();
-    await input.waitFor({ state: 'visible', timeout: 60000 });
+    await page.locator(INPUT_SEL.join(', ')).first().waitFor({ state: 'visible', timeout: 60000 });
     result.pageReadyS = sec();
     if (p.prompt) {
       // Real key events (fill() bypasses the chat's own input state), then confirm the question
-      // shows up in the page; the runtime may still be connecting, so retry up to 3 times.
+      // shows up as a message; the runtime may still be connecting, so retry up to 3 times. Never
+      // retype once the question is on the page (that sent it twice).
       const probeText = p.prompt.slice(0, 40);
+      const userMsgs = page.locator(USER_SEL);
+      const usersBefore = await userMsgs.count().catch(() => 0);
+      const composerText = async () => {
+        const inp = await chatInput(page);
+        return inp ? String(await inp.evaluate((el: any) => el.value ?? el.textContent ?? '').catch(() => '')).trim() : '';
+      };
+      const isSent = async () => {
+        if ((await userMsgs.count().catch(() => 0)) > usersBefore) return true;
+        // A CopilotKit chat marks user messages: trust only that (a suggestion chip can carry the
+        // prompt's text). Custom chats: the question shows on the page and left the composer.
+        const ckChat = await page.locator('[data-testid="copilot-chat"], [data-testid="copilot-message-list"], .copilotKitMessages, .copilotKitChat').count().catch(() => 0);
+        if (ckChat) return false;
+        const body: string = await page.locator('body').innerText().catch(() => '');
+        return body.includes(probeText) && !(await composerText()).includes(probeText);
+      };
       for (let attempt = 1; attempt <= 3 && !result.sentS; attempt++) {
+        if (await isSent()) { result.sentS = sec(); break; }
+        const input = await chatInput(page);
+        if (!input) { await page.waitForTimeout(2000); continue; }
         await input.click();
         await page.keyboard.press('Control+A').catch(() => {});
         await page.keyboard.press('Backspace').catch(() => {});
         await input.pressSequentially(p.prompt, { delay: 2 });
         await page.keyboard.press('Enter');
-        // Sent = the composer emptied (works for <textarea> and contenteditable alike).
         for (let i = 0; i < 10 && !result.sentS; i++) {
           await page.waitForTimeout(500);
-          const typedLeft = String(await input.evaluate((el: any) => el.value ?? el.textContent ?? '').catch(() => '')).trim();
-          if (!typedLeft.includes(probeText)) result.sentS = sec();
+          if (await isSent()) result.sentS = sec();
         }
-        if (!result.sentS) await page.locator(SELECTORS.chatSubmit).first().click({ timeout: 2000 }).catch(() => {});
+        if (!result.sentS && (await composerText()).includes(probeText)) {
+          // Enter didn't submit (some composers need the button); the text is still there.
+          await page.locator(`[data-testid="copilot-send-button"], ${SELECTORS.chatSubmit}`).first().click({ timeout: 2000 }).catch(() => {});
+          for (let i = 0; i < 6 && !result.sentS; i++) { await page.waitForTimeout(500); if (await isSent()) result.sentS = sec(); }
+        }
+        result.attempts = attempt;
       }
       if (!result.sentS) result.sendNote = 'prompt never left the composer (3 attempts)';
-      // Settled = the last assistant message's text has not changed for 4 s (or the wait runs out).
-      const msgs = page.locator(SELECTORS.assistantMessage);
+      // Settled = the last assistant reply (not the prompt echoed back) has not changed for 4 s.
       let last = '', stableSince = Date.now();
       const deadline = Date.now() + WAIT;
       while (Date.now() < deadline) {
-        const cnt = await msgs.count().catch(() => 0);
-        const txt = cnt ? ((await msgs.nth(cnt - 1).innerText().catch(() => '')) || '') : '';
+        const txt = await lastReply(page, probeText);
         const body = (await page.locator('body').innerText().catch(() => '')).length;
         const sig = `${txt}|${body}`;
         if (sig !== last) { last = sig; stableSince = Date.now(); }
         else if (txt && Date.now() - stableSince > 4000) break;
         await page.waitForTimeout(500);
       }
-      const cnt = await msgs.count().catch(() => 0);
-      result.reply = cnt ? ((await msgs.nth(cnt - 1).innerText().catch(() => '')) || '').trim().slice(0, 2000) : '';
+      result.reply = (await lastReply(page, probeText)).slice(0, 2000);
       result.replyS = result.reply ? sec() : null;
     }
     const bodyText: string = await page.locator('body').innerText().catch(() => '');

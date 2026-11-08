@@ -279,7 +279,17 @@ async function check() {
     for (const [d, t] of tracked) {
       if (!inScope(d)) continue;
       const u = urlOf(d), row = report.pages.find((p) => p.docPath === d);
-      const now = row?.state === "gone" ? "gone" : sidebarSet.has(u) ? "sidebar" : linkSet.has(u) ? "in-content" : "none";
+      let now = row?.state === "gone" ? "gone" : sidebarSet.has(u) ? "sidebar" : linkSet.has(u) ? "in-content" : "none";
+      if (now !== "gone" && now !== (t.reachable || "none") && now !== "sidebar") {
+        // The rendered page can redirect where the .md export doesn't (e.g. /vue/<fw>/quickstart
+        // -> /vue/<fw>, the sidebar's "Quickstart"): a reader lands on the redirect target.
+        const h = await get(`${ORIGIN}${u}`);
+        const to = h.final && cleanUrl(h.final);
+        if (to && to !== u) {
+          row && (row.redirectsTo = to);
+          if (sidebarSet.has(to)) now = "sidebar"; else if (linkSet.has(to) && now === "none") now = "in-content";
+        }
+      }
       const was = t.reachable || "none";
       if (now !== was) report.reach.push({ docPath: d, from: was, to: now, active: active(d) });
     }
