@@ -7,7 +7,7 @@ The harness exists to show doc defects. Any fix that hides one defeats the purpo
 - Put doc snippets in exactly as published. If a snippet fails as published, that failure is the finding. Never fix it.
 - Broken pages stay broken, and their clips show the defect.
 - **Never fix or hide a doc-caused error, even a cosmetic one.** No Suspense wrappers, no suppressed overlays, no silenced console errors.
-- One exception (owner, 2026-11-08): the Next.js dev "N Issues" badge is turned off (`devIndicators: false` in `next.config.ts`, marked `HARNESS`). `CopilotKitProvider`'s `Date.now()` put it on every clip, working ones too; it stays a minor note in `FINDINGS.md`.
+- One exception (owner, 2026-11-08): the Next.js dev "N Issues" badge is turned off (`devIndicators: false` in `next.config.ts`, marked `HARNESS`), and the recorder closes the remaining issues pill with its own close button when the demo loads (`dismissNextIssues` in `core/engine.ts`). `CopilotKitProvider`'s `Date.now()` put it on every clip, working ones too; it stays a minor note in `FINDINGS.md`.
 - If a request sounds like "remove / fix this error" in a harness, ask what is meant first, or explain that the error stays visible and is logged in `FINDINGS.md`.
 
 ## 2. HARNESS changes (the only allowed edits)

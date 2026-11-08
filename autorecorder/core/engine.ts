@@ -312,6 +312,25 @@ function distinctErrors(entries: ConsoleEntry[]): string[] {
   return out;
 }
 
+/**
+ * Owner, 2026-11-08 (QA-RULES section 1): close Next.js's dev "N Issues" pill with its own
+ * close button, the way a person would, when it is already up as the demo loads.
+ * CopilotKitProvider's Date.now() puts it on every page (a minor note), working ones too. Pages
+ * without Next (Vite) have no pill: nothing happens. Real crashes still show the error overlay.
+ */
+async function dismissNextIssues(page: Page): Promise<void> {
+  const btn = page.locator('nextjs-portal [data-issues-collapse]').first();
+  if (!(await btn.isVisible().catch(() => false))) {
+    await sleep(800); // the pill animates in just after hydration
+    if (!(await btn.isVisible().catch(() => false))) return;
+  }
+  const box = await btn.boundingBox().catch(() => null);
+  if (!box) return;
+  await humanGlide(page, box.x + box.width / 2, box.y + box.height / 2);
+  await humanClick(page);
+  await sleep(between(250, 500));
+}
+
 export class RecordingEngine {
   private readonly videosDir: string;
   private readonly rootDir: string;
@@ -1154,6 +1173,7 @@ export class RecordingEngine {
           timeout: timeouts.chatReadyMs,
         });
         await sleep(1000);
+        await dismissNextIssues(page);
 
         // Dispatch specific demo actions
         mark('action');
