@@ -372,7 +372,7 @@ def input_events(timeline_p):
     return out
 
 def make_foley(events, total, out_wav, seed=11):
-    """Mouse clicks and keyboard taps, synthesized (no sample files), one per input event. Mono 48 kHz."""
+    """Mouse clicks, one per input event: the recorded sounds/click.wav (synth fallback). Mono 48 kHz."""
     import numpy as np, wave
     sr = 48000
     rng = np.random.default_rng(seed)
@@ -399,8 +399,22 @@ def make_foley(events, total, out_wav, seed=11):
         knock = np.sin(2 * np.pi * body_hz * t) * np.exp(-t / 0.009)
         return ((0.9 * snap + 0.45 * ring + 0.35 * knock) * amp).astype(np.float32)
 
+    # Real recorded click (owner's pick, 2026-11-08): sounds/click.wav = press + release, onset at
+    # ~4 ms. Each click gets a little random level and pitch so repeats don't sound identical.
+    sample = None
+    sp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sounds", "click.wav")
+    if os.path.exists(sp):
+        with wave.open(sp, "rb") as w:
+            sample = np.frombuffer(w.readframes(w.getnframes()), "<i2").astype(np.float32) / 32768
+        sample *= 0.35 / max(1e-6, np.abs(sample).max())
+
     for t, kind in events:
-        if kind == "click":  # press, then a softer, slightly higher release 80-120 ms later
+        if kind == "click" and sample is not None:
+            rate = rng.uniform(0.96, 1.04)  # +-4% pitch/speed
+            idx = np.arange(0, len(sample) - 1, rate)
+            s = np.interp(idx, np.arange(len(sample)), sample).astype(np.float32) * rng.uniform(0.8, 1.05)
+            parts = [(-0.004, s)]
+        elif kind == "click":  # fallback synth: press, then a softer, slightly higher release 80-120 ms later
             snap = rng.uniform(3600, 4600); body = rng.uniform(900, 1300); amp = rng.uniform(0.30, 0.38)
             parts = [(0.0, switch(amp, snap, body)),
                      (rng.uniform(0.08, 0.12), switch(amp * 0.6, snap * 1.08, body * 1.1))]
@@ -408,6 +422,7 @@ def make_foley(events, total, out_wav, seed=11):
             parts = [(0.0, burst(24, rng.uniform(3.0, 4.5), rng.uniform(0.10, 0.17), 0, rng.uniform(0.35, 0.6)))]
         for dt, s in parts:
             i = int((t + dt) * sr)
+            i = max(0, i)
             if 0 <= i < len(buf):
                 j = min(len(buf), i + len(s))
                 buf[i:j] += s[: j - i]
