@@ -98,6 +98,7 @@ We test as the human reviewer the company asked for: we were given the docs link
 | `none` | Exists at a real URL, but nothing in the docs links to it: found only by guessing URLs, the `.md` export, `llms.txt`, a sitemap or automated crawling | **No.** Don't record, don't report, don't log findings for it. |
 
 - **Out of scope by the owner's decision (2026-11-08), even when in the sidebar:** Intelligence pages (`intelligence/*`), Backend pages (`backend/*`) and Deploy pages (`deploy/*`, `deploy-*`). Don't add them to `assignment.json`, don't record, don't report.
+- Doc changes and new package versions: [DRIFT.md](DRIFT.md). CI holds pages whose doc changed and installs what a new reader gets today.
 - Automated fetching (drift check, `.md` export) is an internal tool only. A page it discovers counts only once it is in the sidebar or linked from a reachable page's content.
 - CI records only `sidebar` + `in-content` pages that are not `excluded`, in parallel shards: 5 by default, 15 for LangGraph React (public repos: Actions minutes are free, up to 20 jobs at once). Shards are balanced by each page's recording time from the previous run (`page-durations.json`, kept in the Actions cache).
 - Check by hand: new pages with no route or recorder entry, removed pages whose stale route still records a green clip, legacy code left beside new code, silent failures, React vs Vue/Angular divergence.

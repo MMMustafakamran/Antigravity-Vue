@@ -9,7 +9,7 @@ After the recorder ran:
      Clips a shard already checked (`--checks-only`, uploaded in videos/_shard-checks/) are reused.
   3. summary.md: record results, drift, narration, checks.
 
-  python tools/ci_post.py --videos autorecorder/videos --out out/run [--drift out/run/drift/drift.md]
+  python tools/ci_post.py --videos autorecorder/videos --out out/run [--drift out/run/drift/drift.md] [--versions out/run/versions.md]
 Exit 0 unless the script itself breaks.
 """
 import argparse
@@ -164,6 +164,7 @@ def main():
     ap.add_argument("--videos", type=Path, default=Path("autorecorder/videos"))
     ap.add_argument("--out", type=Path, default=Path("out/run"))
     ap.add_argument("--drift", type=Path, help="drift.md to include")
+    ap.add_argument("--versions", type=Path, help="versions.md to include")
     ap.add_argument("--title", default=os.environ.get("GITHUB_REPOSITORY", "QA run"))
     ap.add_argument("--checks-only", action="store_true",
                     help="CI shard: run the clip checks only, into <videos>/_shard-checks (no narration, no summary)")
@@ -187,7 +188,11 @@ def main():
     if a.drift and a.drift.exists():
         md.append(a.drift.read_text(encoding="utf-8"))
     else:
-        md.append("## Doc drift\n\n_drift report missing_\n")
+        md.append("## Doc drift\n\n_drift report missing: drift unknown, every page was recorded_\n")
+    if a.versions and a.versions.exists():
+        md.append(a.versions.read_text(encoding="utf-8"))
+    else:
+        md.append("## Versions\n\n_versions report missing: the committed lockfiles were installed_\n")
     md.append("## Narration (❌/⚠️ pages)\n")
     if skipped:
         md.append(f"_{skipped}_\n")

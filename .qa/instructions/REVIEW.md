@@ -11,7 +11,7 @@ Background heuristics: `qa-kit/checks/haiku-review-notes.md`.
 
 ## 1. Where this sits
 
-CI (no LLM): record every page → re-attach saved narration to expected-failure clips at the new
+CI (no LLM): hold pages whose doc changed and resolve today's package versions ([DRIFT.md](DRIFT.md)) → record the other pages → re-attach saved narration to expected-failure clips at the new
 marks (fit check flags lines that no longer fit) → `qa-kit/checks` → upload the run artifact.
 Locally: Claude Code downloads the artifact and splits the clips 5 per Haiku agent (this brief)
 → the owner approves → clips go to `3-output/<date>/deliver/` → Loom links → HTML report.

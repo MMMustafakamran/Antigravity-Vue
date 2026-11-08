@@ -1,0 +1,223 @@
+{
+ "root": "vue/google-antigravity",
+ "savedAt": "2026-11-08",
+ "pages": {
+  "/vue/google-antigravity/build-with-agents": [],
+  "/vue/google-antigravity/custom-look-and-feel/slots": [],
+  "/vue/google-antigravity/prebuilt-components": [
+   "/vue/google-antigravity/vue/prebuilt-components/chat",
+   "/vue/google-antigravity/vue/prebuilt-components/chat-controls",
+   "/vue/google-antigravity/vue/prebuilt-components/popup",
+   "/vue/google-antigravity/vue/prebuilt-components/sidebar"
+  ],
+  "/vue/google-antigravity/custom-look-and-feel/headless-ui": [
+   "/vue/google-antigravity/vue/custom-look-and-feel/css",
+   "/vue/google-antigravity/vue/custom-look-and-feel/slots"
+  ],
+  "/vue/google-antigravity": [
+   "/vue/google-antigravity/backend/copilot-runtime",
+   "/vue/google-antigravity/inspector",
+   "/vue/google-antigravity/model-selection",
+   "/vue/google-antigravity/vue/AG-UI-Streams",
+   "/vue/google-antigravity/vue/generative-ui/tool-based",
+   "/vue/google-antigravity/vue/prebuilt-components/copilot-threads-drawer"
+  ],
+  "/vue/google-antigravity/using-these-docs": [],
+  "/vue/google-antigravity/prebuilt-components/copilot-threads-drawer": [
+   "/vue/google-antigravity/vue/AG-UI-Streams",
+   "/vue/google-antigravity/vue/headless-threads",
+   "/vue/google-antigravity/vue/threads-lifecycle"
+  ],
+  "/vue/google-antigravity/headless-threads": [
+   "/vue/google-antigravity/intelligence/self-hosting",
+   "/vue/google-antigravity/intelligence/threads-explained",
+   "/vue/google-antigravity/threads-import",
+   "/vue/google-antigravity/vue/prebuilt-components/copilot-threads-drawer",
+   "/vue/google-antigravity/vue/threads-lifecycle"
+  ],
+  "/vue/google-antigravity/frontend-tools": [],
+  "/vue/google-antigravity/generative-ui/tool-based": [
+   "/vue/google-antigravity/vue/generative-ui/tool-rendering",
+   "/vue/google-antigravity/vue/human-in-the-loop"
+  ],
+  "/vue/google-antigravity/generative-ui/tool-rendering": [],
+  "/vue/google-antigravity/programmatic-control": [
+   "/vue/google-antigravity/vue/custom-look-and-feel/headless-ui"
+  ],
+  "/vue/google-antigravity/generative-ui/state-rendering": [],
+  "/vue/google-antigravity/generative-ui/mcp-apps": [],
+  "/vue/google-antigravity/shared-state": [
+   "/vue/google-antigravity/vue/shared-state/agent-readonly",
+   "/vue/google-antigravity/vue/shared-state/rendering-in-app",
+   "/vue/google-antigravity/vue/shared-state/streaming"
+  ],
+  "/vue/google-antigravity/shared-state/rendering-in-app": [
+   "/vue/google-antigravity/vue/shared-state",
+   "/vue/google-antigravity/vue/shared-state/agent-readonly",
+   "/vue/google-antigravity/vue/shared-state/streaming"
+  ],
+  "/vue/google-antigravity/shared-state/streaming": [
+   "/vue/google-antigravity/vue/shared-state",
+   "/vue/google-antigravity/vue/shared-state/agent-readonly"
+  ],
+  "/vue/google-antigravity/shared-state/agent-readonly": [
+   "/vue/google-antigravity/vue/shared-state",
+   "/vue/google-antigravity/vue/shared-state/streaming"
+  ],
+  "/vue/google-antigravity/human-in-the-loop": [
+   "/vue/google-antigravity/vue/human-in-the-loop/headless",
+   "/vue/google-antigravity/vue/human-in-the-loop/useInterrupt"
+  ],
+  "/vue/google-antigravity/human-in-the-loop/useInterrupt": [],
+  "/vue/google-antigravity/human-in-the-loop/headless": [],
+  "/vue/google-antigravity/human-in-the-loop/governed-actions": [],
+  "/vue/google-antigravity/webmcp": [
+   "/vue/google-antigravity/frontend-tools"
+  ],
+  "/vue/google-antigravity/multi-agent/subagents": [
+   "/vue/google-antigravity/shared-state",
+   "/vue/google-antigravity/shared-state/streaming"
+  ],
+  "/vue/google-antigravity/AG-UI-Streams": [
+   "/vue/google-antigravity/headless-threads",
+   "/vue/google-antigravity/inspector",
+   "/vue/google-antigravity/intelligence/bring-your-own-thread-system",
+   "/vue/google-antigravity/intelligence/managed-intelligence-platform",
+   "/vue/google-antigravity/intelligence/quickstart",
+   "/vue/google-antigravity/intelligence/self-hosting",
+   "/vue/google-antigravity/intelligence/threads-explained",
+   "/vue/google-antigravity/prebuilt-components/copilot-threads-drawer",
+   "/vue/google-antigravity/threads-import",
+   "/vue/google-antigravity/threads-lifecycle"
+  ],
+  "/vue/google-antigravity/threads-import": [
+   "/vue/google-antigravity/headless-threads",
+   "/vue/google-antigravity/intelligence/bring-your-own-thread-system",
+   "/vue/google-antigravity/intelligence/managed-intelligence-platform",
+   "/vue/google-antigravity/intelligence/quickstart",
+   "/vue/google-antigravity/intelligence/self-hosting",
+   "/vue/google-antigravity/intelligence/threads-explained",
+   "/vue/google-antigravity/prebuilt-components/copilot-threads-drawer"
+  ],
+  "/vue/google-antigravity/threads-lifecycle": [
+   "/vue/google-antigravity/auth",
+   "/vue/google-antigravity/intelligence/threads-explained",
+   "/vue/google-antigravity/threads-import",
+   "/vue/google-antigravity/vue/headless-threads"
+  ],
+  "/vue/google-antigravity/learning": [
+   "/vue/google-antigravity/AG-UI-Streams",
+   "/vue/google-antigravity/cli",
+   "/vue/google-antigravity/inspector",
+   "/vue/google-antigravity/intelligence/capture-interactions",
+   "/vue/google-antigravity/intelligence/learned-skills",
+   "/vue/google-antigravity/intelligence/memories",
+   "/vue/google-antigravity/intelligence/overview",
+   "/vue/google-antigravity/intelligence/quickstart",
+   "/vue/google-antigravity/intelligence/threads-explained"
+  ],
+  "/vue/google-antigravity/runtime-server-adapter": [
+   "/vue/google-antigravity/intelligence/quickstart"
+  ],
+  "/vue/google-antigravity/inspector": [
+   "/vue/google-antigravity/AG-UI-Streams",
+   "/vue/google-antigravity/agent-config",
+   "/vue/google-antigravity/agentic-protocols/ag-ui",
+   "/vue/google-antigravity/backend/copilot-runtime",
+   "/vue/google-antigravity/backend/runtime-endpoints",
+   "/vue/google-antigravity/frontend-tools",
+   "/vue/google-antigravity/generative-ui/components",
+   "/vue/google-antigravity/headless-threads",
+   "/vue/google-antigravity/intelligence/overview",
+   "/vue/google-antigravity/intelligence/quickstart",
+   "/vue/google-antigravity/learning",
+   "/vue/google-antigravity/quickstart",
+   "/vue/google-antigravity/react-native",
+   "/vue/google-antigravity/shared-state",
+   "/vue/google-antigravity/shared-state/agent-readonly",
+   "/vue/google-antigravity/troubleshooting/debug-mode",
+   "/vue/google-antigravity/troubleshooting/error-debugging",
+   "/vue/google-antigravity/vs-code-extension"
+  ],
+  "/vue/google-antigravity/concepts/architecture": [
+   "/vue/google-antigravity/agentic-protocols/ag-ui",
+   "/vue/google-antigravity/intelligence/overview",
+   "/vue/google-antigravity/quickstart"
+  ],
+  "/vue/google-antigravity/concepts/generative-ui-overview": [
+   "/vue/google-antigravity/generative-ui/a2ui",
+   "/vue/google-antigravity/generative-ui/a2ui/dynamic-schema",
+   "/vue/google-antigravity/generative-ui/a2ui/fixed-schema",
+   "/vue/google-antigravity/generative-ui/mcp-apps",
+   "/vue/google-antigravity/generative-ui/reasoning",
+   "/vue/google-antigravity/generative-ui/state-rendering",
+   "/vue/google-antigravity/generative-ui/tool-based",
+   "/vue/google-antigravity/generative-ui/tool-rendering"
+  ],
+  "/vue/google-antigravity/concepts/which-hook": [
+   "/vue/google-antigravity/vue/custom-look-and-feel/slots",
+   "/vue/google-antigravity/vue/frontend-tools",
+   "/vue/google-antigravity/vue/generative-ui/tool-based",
+   "/vue/google-antigravity/vue/generative-ui/tool-rendering",
+   "/vue/google-antigravity/vue/human-in-the-loop"
+  ],
+  "/vue/google-antigravity/concepts/oss-vs-enterprise": [
+   "/vue/google-antigravity/AG-UI-Streams",
+   "/vue/google-antigravity/backend/copilot-runtime",
+   "/vue/google-antigravity/inspector",
+   "/vue/google-antigravity/intelligence/analytics",
+   "/vue/google-antigravity/intelligence/channels",
+   "/vue/google-antigravity/intelligence/intelligence-platform",
+   "/vue/google-antigravity/intelligence/learned-skills",
+   "/vue/google-antigravity/intelligence/managed-intelligence-platform",
+   "/vue/google-antigravity/intelligence/memories",
+   "/vue/google-antigravity/intelligence/overview",
+   "/vue/google-antigravity/intelligence/self-hosting",
+   "/vue/google-antigravity/intelligence/self-hosting-ecs",
+   "/vue/google-antigravity/learning",
+   "/vue/google-antigravity/quickstart"
+  ],
+  "/vue/google-antigravity/agentic-protocols": [
+   "/vue/google-antigravity/generative-ui/a2ui",
+   "/vue/google-antigravity/generative-ui/mcp-apps"
+  ],
+  "/vue/google-antigravity/agentic-protocols/ag-ui": [],
+  "/vue/google-antigravity/agentic-protocols/ag-ui-middleware": [
+   "/vue/google-antigravity/backend/ag-ui",
+   "/vue/google-antigravity/backend/copilot-runtime"
+  ],
+  "/vue/google-antigravity/agentic-protocols/mcp": [
+   "/vue/google-antigravity/agentic-protocols",
+   "/vue/google-antigravity/backend/copilot-runtime",
+   "/vue/google-antigravity/generative-ui/mcp-apps",
+   "/vue/google-antigravity/generative-ui/tool-rendering",
+   "/vue/google-antigravity/human-in-the-loop"
+  ],
+  "/vue/google-antigravity/agentic-protocols/a2a": [
+   "/vue/google-antigravity/agentic-protocols"
+  ],
+  "/vue/google-antigravity/troubleshooting/common-issues": [
+   "/vue/google-antigravity/backend/agent-runner",
+   "/vue/google-antigravity/backend/runtime-endpoints",
+   "/vue/google-antigravity/deploy/agentcore",
+   "/vue/google-antigravity/intelligence/self-hosting",
+   "/vue/google-antigravity/model-selection"
+  ],
+  "/vue/google-antigravity/troubleshooting/debug-mode": [
+   "/vue/google-antigravity/troubleshooting/error-debugging"
+  ],
+  "/vue/google-antigravity/troubleshooting/event-inspector": [
+   "/vue/google-antigravity/inspector",
+   "/vue/google-antigravity/vs-code-extension"
+  ],
+  "/vue/google-antigravity/community-frameworks": [],
+  "/vue/google-antigravity/quickstart": [
+   "/vue/google-antigravity/backend/copilot-runtime",
+   "/vue/google-antigravity/inspector",
+   "/vue/google-antigravity/model-selection",
+   "/vue/google-antigravity/vue/AG-UI-Streams",
+   "/vue/google-antigravity/vue/generative-ui/tool-based",
+   "/vue/google-antigravity/vue/prebuilt-components/copilot-threads-drawer"
+  ]
+ }
+}
