@@ -12,7 +12,8 @@
  *   --route path       override the route (one page only)
  *   --wait 90          max seconds to wait for the reply to settle (default 90)
  *   --parallel 3       pages at once (default 3)
- *   --headed           show the browser
+ *   --headed           show the browser (use it for pages with embedded apps / iframes / canvas,
+ *                      e.g. MCP Apps: headless Chromium may leave them as an empty box)
  *   --video            also save a plain (unedited) video of the demo
  * Output: autorecorder/videos/probe/<page-id>/  final.png, shots/<n>s.png (every 5 s),
  *         result.json { reply, errorsOnScreen, console errors, failed requests, timing }
@@ -92,11 +93,11 @@ async function probe(p: any) {
         await page.keyboard.press('Backspace').catch(() => {});
         await input.pressSequentially(p.prompt, { delay: 2 });
         await page.keyboard.press('Enter');
+        // Sent = the composer emptied (works for <textarea> and contenteditable alike).
         for (let i = 0; i < 10 && !result.sentS; i++) {
           await page.waitForTimeout(500);
-          const typedLeft = ((await input.inputValue().catch(() => (input as any).innerText?.() ?? '')) || '').trim();
-          const shown = (await page.locator('body').innerText().catch(() => '')).includes(probeText);
-          if (shown && !typedLeft.includes(probeText)) result.sentS = sec();
+          const typedLeft = String(await input.evaluate((el: any) => el.value ?? el.textContent ?? '').catch(() => '')).trim();
+          if (!typedLeft.includes(probeText)) result.sentS = sec();
         }
         if (!result.sentS) await page.locator(SELECTORS.chatSubmit).first().click({ timeout: 2000 }).catch(() => {});
       }
