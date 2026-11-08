@@ -83,7 +83,7 @@ Ask your coding agent to follow the setup steps on this page for your selected f
         const runtime = new CopilotRuntime({
           agents: {
             default: new BuiltInAgent({
-              model: "openai:gpt-5-mini",
+              model: "openai:gpt-6-luna",
               prompt: "You are a helpful assistant for a Vue app.",
             }),
           },
