@@ -1,0 +1,33 @@
+{
+ "clip": "ANTIGRAVITY-vue-01-Quickstart",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the Vue quickstart page in the CopilotKit docs, for Google Antigravity, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "So this is my project. This is the server dot ts and the Vue app, uh, from the doc's steps, and these are the CopilotKit versions, one point eighty-four point one. Basically the server registers a built in agent with OpenAI, exactly like the doc says. And umm, there's nothing here that connects to an Antigravity agent. No HTTP agent, no Antigravity server URL, nothing like that."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo. So I asked the chat what this app can do, and it answered fine. But this answer is coming from OpenAI, through the built in agent. Antigravity is never involved at all, so umm, this isn't really an Antigravity quickstart. It's just the generic Vue setup with an OpenAI model."
+  },
+  {
+   "at": "evidence",
+   "text": "Back on the live doc. In the browser, this page just shows the Antigravity landing page, and uh, the embedded live demo gives a four oh four. There's no Vue quickstart on it at all."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And the only code here is a Next JS route."
+  },
+  {
+   "at": "notepad",
+   "text": "So noting it down. The live page shows the landing page with Next JS code. The Vue steps only exist in the markdown export, and they use the OpenAI built in agent, umm, never Antigravity. What's missing is an HTTP agent pointed at the Antigravity server. With that one change, ahh, the Vue app does work with Antigravity."
+  },
+  {
+   "at": "+",
+   "text": "So basically, someone following this page gets a working chat, but uh, it's not Antigravity at all. So yeah, kindly check this and fix it."
+  }
+ ]
+}

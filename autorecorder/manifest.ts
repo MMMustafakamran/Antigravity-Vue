@@ -24,7 +24,7 @@
  * `package.json` already shipped `"manifest": "tsx cli.ts --manifest"`, but
  * `cli.ts` never implemented `--manifest` and does not list it in GLOBAL_FLAGS,
  * so that script fell through to the page-name filter, matched nothing and
- * exited 1. `cli.ts` is frozen by ADAPT.md, so the feature lands here and the
+ * exited 1. `cli.ts` is frozen by .qa/recorder/ADAPT.md, so the feature lands here and the
  * script now points at this file. The dangling flag is worth reporting upstream.
  */
 

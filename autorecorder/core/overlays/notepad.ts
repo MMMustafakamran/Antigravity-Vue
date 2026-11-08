@@ -1,6 +1,7 @@
 import { type Page } from 'playwright';
 import { humanClick, humanGlide, sleep } from './cursor';
 import { keystrokeDelay, type TypeRhythm } from './human';
+import { keyframe, logAction, logInput } from '../timeline';
 
 /**
  * A Windows 11 Notepad window, drawn inside the page.
@@ -146,12 +147,30 @@ export async function typeInNotepad(
   let col = 1;
 
   for (const ch of text) {
+    // '\b' is a backspace: remove the character before the caret (lets callers type a typo and fix it).
+    if (ch === '\b') {
+      logInput('backspace'); // Notepad text is written into the page, so no real key event fires
+      col = Math.max(1, col - 1);
+      await page.evaluate(
+        (a: { textId: string; caretId: string; posId: string; l: number; col: number }) => {
+          const caret = document.getElementById(a.caretId);
+          const prev = caret?.previousSibling;
+          if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
+          const pos = document.getElementById(a.posId);
+          if (pos) pos.textContent = 'Ln ' + a.l + ', Col ' + a.col;
+        },
+        { textId: TEXT_ID, caretId: CARET_ID, posId: POS_ID, l: line, col },
+      );
+      await sleep(90 + Math.random() * 70);
+      continue;
+    }
     if (ch === '\n') {
       line += 1;
       col = 1;
     } else {
       col += 1;
     }
+    logInput(ch === '\n' ? 'enter' : 'key');
 
     await page.evaluate(
       (a: { textId: string; caretId: string; posId: string; c: string; l: number; col: number }) => {
@@ -170,6 +189,14 @@ export async function typeInNotepad(
 
     await sleep(keystrokeDelay(ch, opts));
   }
+  // The text as it ends up on screen (typos and their backspaces resolved), for events.jsonl.
+  const typed: string[] = [];
+  for (const ch of text) {
+    if (ch === '\b') typed.pop();
+    else typed.push(ch);
+  }
+  logAction('type', 'notepad', 'ok', { text: typed.join('').slice(0, 400) });
+  keyframe('notepad-typed');
 }
 
 /** Leaves the window up long enough to read, then closes it. */

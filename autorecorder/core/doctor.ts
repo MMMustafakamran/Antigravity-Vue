@@ -565,7 +565,7 @@ export async function runDoctor(
   console.log(`\n  ${errors.length} error(s), ${warnings.length} warning(s)`);
   console.log(
     errors.length > 0
-      ? `  Adaptation is NOT complete. See ADAPT.md.\n`
+      ? `  Adaptation is NOT complete. See .qa/recorder/ADAPT.md.\n`
       : `  No blocking errors; review the warnings above.\n`,
   );
 

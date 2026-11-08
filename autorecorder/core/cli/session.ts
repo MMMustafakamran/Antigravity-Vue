@@ -12,6 +12,7 @@ import { join } from 'node:path';
 import pty from 'node-pty';
 import { keystrokeDelay } from '../overlays/human';
 import { CastRecorder } from './cast';
+import { redactText } from './redact';
 import { highlightedLabel, lastLines, tailMatches } from './screen';
 
 const POLL_INTERVAL_MS = 60;
@@ -63,6 +64,12 @@ export interface SessionOptions {
    * character in the replay; see `CastRecorder.typedPreamble`.
    */
   preamble?: { prompt: string; command: string };
+  /**
+   * Every chunk the PTY prints, as it prints it, with credentials masked the
+   * same way the cast masks them. Lets a caller show the session live (the
+   * failure terminal streams it into the filmed window).
+   */
+  onData?: (data: string) => void;
 }
 
 export class PtySession {
@@ -101,6 +108,7 @@ export class PtySession {
     this.proc.onData((data) => {
       this.stream += data;
       this.cast.output(data);
+      if (opts.onData) opts.onData(redactText(data));
       if (echo) process.stdout.write(data);
     });
     this.proc.onExit(({ exitCode }) => {

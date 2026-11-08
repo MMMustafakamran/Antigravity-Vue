@@ -204,6 +204,12 @@ export function generateTerminalHtml(opts: TerminalRenderOptions): string {
   });
   term.open(document.getElementById('term-host'));
 
+  // Live mode: the caller writes a running PTY's output straight in, as it
+  // arrives (the failure terminal). Resolves once xterm has drawn the chunk.
+  window.__termWrite = function (data) {
+    return new Promise(function (r) { term.write(data, r); });
+  };
+
   window.__castReplayDone = false;
   window.__castEventCount = EVENTS.length;
 

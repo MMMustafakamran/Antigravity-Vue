@@ -2,10 +2,11 @@ import { existsSync, mkdirSync, rmSync, unlinkSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
 import { executePageAction } from '../actions';
+import { endTimeline, mark, saveTimeline, setTimelinePage, startTimeline } from './timeline';
 import { diagnoseError } from './diagnostics';
 import { PROJECT } from '../config/project.config';
 import { SELECTORS } from '../config/selectors.config';
-import { castDuration, compressCast, type Cast } from './cli/cast';
+import { castDuration, compressCast, writeCast, type Cast } from './cli/cast';
 import {
   ServiceStartError,
   startService,
@@ -15,11 +16,11 @@ import { generateTerminalHtml } from './cli/terminal';
 import { breakingErrors, captureConsole, type ConsoleEntry } from './console-capture';
 import {
   buildFailureEvidence,
-  evidenceCast,
   snapshotLogOffsets,
   writeFailureLog,
   type LogSource,
 } from './failure-evidence';
+import { pickShell, runFailureTerminal } from './failure-terminal';
 import { generateIdeHtml, type IdeTabConfig } from './ide/generator';
 import { closeNotepad, openNotepad, typeInNotepad } from './overlays/notepad';
 import { humanClick, humanGlide, humanScrollDown, restCursorSomewhere, sleep } from './overlays/cursor';
@@ -383,6 +384,7 @@ export class RecordingEngine {
     }
 
     const page = await context.newPage();
+    startTimeline(page); // the video starts with this page; logs console/network/navigation too
 
     // about:blank computes to rgba(0,0,0,0) and paints pure black regardless of
     // --background-color, so the residual lead-in reads as a black screen.
@@ -411,6 +413,8 @@ export class RecordingEngine {
     subdir?: string,
   ): Promise<string> {
     const video = page.video();
+    // Last frame and outstanding probes while the page can still answer them. Logging only.
+    await endTimeline().catch(() => {});
     await page.close().catch(() => {});
     await context.close().catch(() => {});
 
@@ -426,6 +430,7 @@ export class RecordingEngine {
       try {
         if (existsSync(finalWebm)) unlinkSync(finalWebm);
         await video.saveAs(finalWebm);
+        saveTimeline(finalWebm.replace(/[.]webm$/, '.timeline.json'), baseFilename);
         await video.delete().catch(() => {});
         if (announceSuccess) {
           console.log(`\n🎥 [RECORDING SUCCESSFUL]: ${finalWebm}\n`);
@@ -675,22 +680,7 @@ export class RecordingEngine {
     page: Page,
     opts: { cast: Cast; title?: string; origin?: string },
   ): Promise<void> {
-    const terminalHtml = withWindowFade(generateTerminalHtml({ cast: opts.cast, title: opts.title }));
-    const terminalUrl = new URL(
-      TERMINAL_ROUTE_PATH,
-      opts.origin ?? PROJECT.frontendUrl,
-    ).toString();
-
-    await page.route(terminalUrl, (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: 'text/html; charset=utf-8',
-        body: terminalHtml,
-      }),
-    );
-    await page.goto(terminalUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
-    await ensureOverlays(page, 'terminal');
-    await sleep(400);
+    const terminalUrl = await this.openTerminalWindow(page, opts);
 
     await page.evaluate(`window.__startCastReplay && window.__startCastReplay()`);
 
@@ -709,10 +699,39 @@ export class RecordingEngine {
     await Promise.race([page.unroute(terminalUrl).catch(() => {}), sleep(3000)]);
   }
 
+  /** Serves the terminal window for `opts.cast` and navigates to it. Returns its URL. */
+  private async openTerminalWindow(
+    page: Page,
+    opts: { cast: Cast; title?: string; origin?: string },
+  ): Promise<string> {
+    const terminalHtml = withWindowFade(generateTerminalHtml({ cast: opts.cast, title: opts.title }));
+    const terminalUrl = new URL(
+      TERMINAL_ROUTE_PATH,
+      opts.origin ?? PROJECT.frontendUrl,
+    ).toString();
+
+    await page.route(terminalUrl, (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'text/html; charset=utf-8',
+        body: terminalHtml,
+      }),
+    );
+    await page.goto(terminalUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await ensureOverlays(page, 'terminal');
+    await sleep(400);
+    return terminalUrl;
+  }
+
   /**
-   * Closes a failed take on the evidence: the log file always, the terminal
-   * window when the page can still be driven. Bounded, so a wedged page cannot
-   * turn a 60-second failure into a 5-minute one.
+   * Closes a failed take on the evidence: the log file always, and, when the
+   * page can still be driven, a REAL terminal: a shell spawned with node-pty in
+   * the repo root, ordinary commands typed into it (`ls logs/`, `tail`, `grep`
+   * on this repo's server logs), and its output streamed into the terminal
+   * window live, byte for byte. Nothing on screen is written by the recorder
+   * (failure-terminal.ts). The session is also saved as
+   * `videos/logs/<page-id>.error-terminal.cast`. Bounded, so a wedged page or
+   * shell cannot turn a 60-second failure into a 5-minute one.
    */
   private async showFailureEvidence(
     page: Page,
@@ -732,20 +751,59 @@ export class RecordingEngine {
       return;
     }
     if (page.isClosed()) return;
+    const shell = pickShell();
+    if (!shell) {
+      console.warn('   Evidence note: no bash/powershell found, terminal not shown on camera');
+      return;
+    }
+    const title = `Error console — ${pageId}`;
+    const cols = 120;
+    const rows = 32;
+    const abort = { aborted: false };
+    // PTY chunks go to the window in order, one evaluate at a time.
+    let writes: Promise<unknown> = Promise.resolve();
+    const write = (data: string): void => {
+      writes = writes
+        .then(() => page.evaluate(`window.__termWrite && window.__termWrite(${JSON.stringify(data)})`))
+        .catch(() => {});
+    };
     try {
       await Promise.race([
         (async () => {
           await sleep(800);
-          await this.playCastInTerminal(page, {
-            cast: evidenceCast(evidence),
-            title: `Error console — ${pageId}`,
+          await this.openTerminalWindow(page, {
+            cast: {
+              header: { version: 2, width: cols, height: rows, timestamp: Math.floor(Date.now() / 1000), title },
+              events: [],
+            },
+            title,
           });
+          await sleep(500);
+          const run = await runFailureTerminal({
+            rootDir: this.rootDir,
+            logs,
+            title,
+            cols,
+            rows,
+            onData: write,
+            signal: abort,
+          });
+          await writes;
+          console.log(`   🖥️  Failure terminal (${run.shell}): ${run.commands.join('  ;  ')}`);
+          try {
+            const castFile = join(logsDir, `${pageId}.error-terminal.cast`);
+            writeCast(castFile, run.cast);
+            console.log(`   📝 Failure terminal cast: ${castFile}`);
+          } catch {}
+          // Hold on the last output so it can be read before the clip ends.
+          await sleep(2500);
         })(),
-        sleep(20_000).then(() => {
-          throw new Error('evidence terminal did not finish in 20s');
+        sleep(90_000).then(() => {
+          throw new Error('failure terminal did not finish in 90s');
         }),
       ]);
     } catch (e) {
+      abort.aborted = true;
       console.warn(`   Evidence note: terminal not shown on camera: ${e instanceof Error ? e.message : e}`);
     }
   }
@@ -773,12 +831,14 @@ export class RecordingEngine {
     let finalSavedFilename = '';
 
     const { browser, context, page } = await this.openStage(req.docUrl);
+    setTimelinePage(req.id, req.docUrl);
 
     try {
       // ----------------------------------------------------
       // STEP 1: THE DOC PAGE THIS FLOW IS EVIDENCE FOR
       // ----------------------------------------------------
       if (req.docUrl) {
+        mark('doc');
         const note = await this.showDocPage(
           page,
           req.docUrl,
@@ -792,6 +852,7 @@ export class RecordingEngine {
       // STEP 1b: THE CODE THE FINDING IS ABOUT
       // ----------------------------------------------------
       if (req.ideTabs?.length) {
+        mark('ide');
         console.log(`\n💻 Step 1b: Showing ${req.ideTabs.length} file(s) in VS Code...`);
         await this.showIde(page, req.ideTabs, PROJECT.frontendUrl, {
           dwellMs: req.ideDwellMs ?? 3800,
@@ -805,6 +866,7 @@ export class RecordingEngine {
       // STEP 2: TERMINAL WINDOW REPLAYING THE CAPTURED SESSION
       // ----------------------------------------------------
       for (const [i, segment] of req.segments.entries()) {
+        mark('terminal', segment.title);
         console.log(
           `\n⌨️  Step 2.${i + 1}: Replaying ${segment.title ?? 'terminal cast'} ` +
             `(${segment.cast.events.length} events, ${castDuration(segment.cast).toFixed(1)}s)...`,
@@ -822,9 +884,11 @@ export class RecordingEngine {
       // ----------------------------------------------------
       if (req.notepad) {
         console.log(`\n📝 Step 3: Writing the finding in Notepad...`);
+        mark('notepad');
         await openNotepad(page, req.notepad.filename);
         await typeInNotepad(page, req.notepad.body, { charDelayMs: req.notepad.charDelayMs });
         await closeNotepad(page);
+        mark('notepad-closed');
       }
     } catch (e) {
       recordError = `CLI replay failed: ${diagnoseError(e, 'cli-replay')}`;
@@ -865,7 +929,7 @@ export class RecordingEngine {
     // Where the server logs stand as this take begins. If it fails, the
     // evidence shown is this page's slice of the logs, not the whole run's.
     const logsDir = join(this.videosDir, 'logs');
-    const logSources: LogSource[] = snapshotLogOffsets(logsDir);
+    const logSources: LogSource[] = snapshotLogOffsets(logsDir, [join(this.rootDir, 'logs')]);
 
     /** A step that renders the thing under test failed -- the video is not usable. */
     const fail = (message: string): void => {
@@ -922,6 +986,7 @@ export class RecordingEngine {
     }
 
     const { browser, context, page } = await this.openStage(config.docUrl);
+    setTimelinePage(config.id, config.docUrl);
 
     // Console errors, page errors and failed backend requests, kept rather than
     // printed and forgotten. They go on the result so the summary and the
@@ -948,6 +1013,7 @@ export class RecordingEngine {
       // take is done -- and the taskbar click into VS Code is skipped, since
       // there is no VS Code segment to click into.
       if (config.docOnly) {
+        mark('doc');
         const docNote = await this.showDocPage(page, config.docUrl, 'chrome', timeouts);
         if (docNote) warnings.push(docNote);
         console.log(`   📄 Page is doc-only (empty section). Pausing for viewing...`);
@@ -957,12 +1023,14 @@ export class RecordingEngine {
         throw new DocOnlyDone();
       }
 
+      mark('doc');
       const docNote = await this.showDocPage(page, config.docUrl, 'vscode', timeouts);
       if (docNote) warnings.push(docNote);
 
       // ----------------------------------------------------
       // STEP 2: SHOW PROJECT CODE IN VS CODE IDE WITH SNIPPET SELECTION
       // ----------------------------------------------------
+      mark('ide');
       const hasExtraTabs = Boolean(config.extraTabs && config.extraTabs.length > 0);
       console.log(
         `\n💻 Step 2: Displaying Project Code in VS Code IDE (${config.ideFile}: lines ${config.startLine}-${config.endLine})...`,
@@ -994,6 +1062,7 @@ export class RecordingEngine {
       // STEP 2b: THE DEV SERVER BOOTING, IN A TERMINAL
       // ----------------------------------------------------
       if (service) {
+        mark('terminal', 'dev server boot');
         console.log(
           `\n⌨️  Step 2b: Replaying dev server boot (${service.bootSeconds}s to ready)...`,
         );
@@ -1020,6 +1089,7 @@ export class RecordingEngine {
       // ----------------------------------------------------
       // STEP 3: FRONTEND DEMO PAGE & TAILORED ACTION EXECUTION
       // ----------------------------------------------------
+      mark('demo');
       console.log(`\n🚀 Step 3: Opening Demo (${config.demoUrl})...`);
       console_ = captureConsole(page);
       try {
@@ -1080,6 +1150,7 @@ export class RecordingEngine {
         await sleep(1000);
 
         // Dispatch specific demo actions
+        mark('action');
         await executePageAction(page, config, this.rootDir, ctx);
 
         if (actionFailures.length > 0) {
@@ -1115,12 +1186,13 @@ export class RecordingEngine {
         console.error(`\n❌ [Page error on ${config.id}]: ${recordError}\n`);
       }
 
-      // A failed take ends with the person opening the terminal to read what
-      // went wrong: the diagnosed error, the browser console, and this page's
-      // slice of the server logs, scrolled to the line that explains it. The
-      // same text goes to videos/logs/<id>.error.log. Never lets an evidence
+      // A failed take ends with the person opening a real terminal and reading
+      // this repo's server logs in it (tail / grep, typed live; see
+      // failure-terminal.ts). The diagnosed error, the browser console and the
+      // log slices go to videos/logs/<id>.error.log. Never lets an evidence
       // problem hide the original failure.
       if (recordError) {
+        mark('failure', recordError.slice(0, 160));
         await this.showFailureEvidence(page, config.id, recordError, console_?.entries ?? [], logSources, logsDir);
       }
 

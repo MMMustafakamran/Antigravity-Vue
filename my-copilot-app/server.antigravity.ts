@@ -1,6 +1,6 @@
 // HARNESS: no Vue page shows how to register an Antigravity agent (FINDINGS.md #1).
 // This is the quickstart server.ts with BuiltInAgent replaced by the React quickstart's
-// HttpAgent, pointed at the Antigravity backend (Antigravity-react/backend, :8000).
+// HttpAgent, pointed at this repo's own Antigravity quickstart backend (../backend, :8141).
 import { createServer } from "node:http";
 import { HttpAgent } from "@ag-ui/client";
 import { CopilotRuntime } from "@copilotkit/runtime/v2";
@@ -8,7 +8,7 @@ import { createCopilotNodeListener } from "@copilotkit/runtime/v2/node";
 
 const runtime = new CopilotRuntime({
   agents: {
-    default: new HttpAgent({ url: process.env.AGENT_URL ?? "http://localhost:8000" }),
+    default: new HttpAgent({ url: process.env.AGENT_URL ?? "http://localhost:8141" }), // HARNESS: port 8141 (React quickstart: 8000); AGENT_URL overrides
   },
 });
 

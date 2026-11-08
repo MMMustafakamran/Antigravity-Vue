@@ -1,0 +1,9 @@
+{
+ "text": "So this is my project. This is the server dot ts and the Vue app, uh, from the doc's steps, and these are the CopilotKit versions, one point eighty-four point one. Basically the server registers a built in agent with OpenAI, exactly like the doc says. And umm, there's nothing here that connects to an Antigravity agent. No HTTP agent, no Antigravity server URL, nothing like that.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 27.864,
+ "file": "f328876b10d4ab108c3f830a5dc195ae.mp3",
+ "clip": "ANTIGRAVITY-vue-01-Quickstart",
+ "at": "ide"
+}

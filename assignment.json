@@ -1,0 +1,137 @@
+{
+ "framework": "Google Antigravity",
+ "ui": "vue",
+ "repo": "Antigravity-vue",
+ "docBase": "https://docs.copilotkit.ai/vue/google-antigravity/",
+ "versions": {
+  "@copilotkit/vue": "1.84.1",
+  "@copilotkit/runtime": "1.84.1",
+  "vue": "3.5.44",
+  "vite": "8.3.5",
+  "tsx": "4.23.15"
+ },
+ "testedContext": {
+  "os": "Microsoft Windows 11 Pro",
+  "packageManager": "npm 11 (Node 26.7.0)"
+ },
+ "report": {
+  "style": "status",
+  "h1": "Google Antigravity",
+  "title": "Google Antigravity status",
+  "quickstartHeading": "Quickstart",
+  "quickstartHeader": [
+   "Frontend",
+   "Quickstart"
+  ],
+  "clipsToUpload": false,
+  "columns": [
+   "Page/Section",
+   "Results"
+  ],
+  "resultColumn": 1,
+  "guidesHeading": "Guides (Vue)"
+ },
+ "sections": [
+  {
+   "label": "App Control",
+   "cells": [
+    "Section"
+   ]
+  },
+  {
+   "label": "Basics",
+   "cells": [
+    "Section"
+   ]
+  }
+ ],
+ "pages": [
+  {
+   "id": "quickstart",
+   "label": "Vue",
+   "kind": "quickstart",
+   "group": null,
+   "child": false,
+   "docPath": "quickstart",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    1,
+    2,
+    3
+   ],
+   "notes": [
+    "Note: live page shows the landing page with Next.js code; the Vue steps use OpenAI BuiltInAgent, never Antigravity"
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-01-Quickstart",
+     "loom": "https://www.loom.com/share/faa676eacb714d7c841dcddfee991eed",
+     "narration": "narration/scripts/ANTIGRAVITY-vue-01-Quickstart.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "frontend-tools",
+   "label": "Frontend Tools",
+   "kind": "guide",
+   "group": "App Control",
+   "child": false,
+   "docPath": "frontend-tools",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    4,
+    5,
+    9
+   ],
+   "notes": [
+    "Note: `runtime-url=\"/api/copilotkit\"` 404s on Vite; must be `http://localhost:8200/api/copilotkit`"
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-02-FrontendTools",
+     "loom": "https://www.loom.com/share/bf2c68d1c8d94203bee3271fbc00221e",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "agentic-chat-ui",
+   "label": "Chat Components",
+   "kind": "guide",
+   "group": "Basics",
+   "child": false,
+   "docPath": "agentic-chat-ui",
+   "reachable": "none",
+   "status": "❌",
+   "findings": [
+    6
+   ],
+   "notes": [
+    "Note: the only code shown is React/Next.js (`page.tsx`, `<CopilotKit>`), no Vue template"
+   ],
+   "block": null,
+   "links": [],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  }
+ ]
+}

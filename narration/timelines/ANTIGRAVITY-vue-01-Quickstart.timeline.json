@@ -1,0 +1,34 @@
+{
+ "clip": "ANTIGRAVITY-vue-01-Quickstart",
+ "source": "frames",
+ "marks": [
+  {
+   "t": 0,
+   "label": "doc"
+  },
+  {
+   "t": 16,
+   "label": "ide"
+  },
+  {
+   "t": 44,
+   "label": "demo"
+  },
+  {
+   "t": 72,
+   "label": "evidence"
+  },
+  {
+   "t": 88,
+   "label": "evidence"
+  },
+  {
+   "t": 94,
+   "label": "notepad"
+  },
+  {
+   "t": 122,
+   "label": "wrap"
+  }
+ ]
+}

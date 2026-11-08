@@ -1,4 +1,5 @@
 import { type Locator, type Page } from 'playwright';
+import { logAction } from '../timeline';
 import { getGlobalCursorPos, humanClick, humanGlide, sleep } from './cursor';
 
 /**
@@ -397,4 +398,5 @@ export async function clickTaskbarApp(
   `);
 
   await sleep(400);
+  logAction('click', `taskbar:${targetApp}`);
 }

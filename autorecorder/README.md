@@ -10,7 +10,7 @@ Currently configured for **Agno (Python) + React** — the 16 routes of this rep
 that have a chrome-free `demo-chat` page. The other 5 doc routes are reference
 pages with nothing to drive; see *Scope* below.
 
-> **Porting this to another framework?** Read **[ADAPT.md](ADAPT.md)** first. It
+> **Porting this to another framework?** Read **[ADAPT.md](../.qa/recorder/ADAPT.md)** first. It
 > is written for the person or agent doing the port, and it is the contract the
 > `doctor` command enforces.
 
@@ -219,7 +219,7 @@ The split between what you edit and what you don't is the point of this folder.
 
 ```
 autorecorder/
-├── ADAPT.md                    ← how to port this; read before editing
+├── (ADAPT.md, PORT-CLI.md live in ../.qa/recorder/, synced from qa-kit)
 ├── cli.ts                      ← entrypoint, arg parsing, summary
 │
 ├── config/                     ← ★ THE ADAPTATION SURFACE
@@ -233,7 +233,7 @@ autorecorder/
 │   ├── error-console.ts          put browser errors on screen when that is the story
 │   └── *.action.ts               per-page interaction scripts
 │
-├── core/                       ← ✖ DO NOT EDIT — no framework knowledge here
+├── core/                       ← ✖ DO NOT EDIT — generated from the workspace 2-shared/qa-kit/recorder/core by sync.sh
 │   ├── CORE_MANIFEST.json        hash per core file; `npm run core:check` enforces it
 │   ├── engine.ts                 browser lifecycle, the 3-step sequence, pass/fail
 │   ├── actions.ts                sendPrompt, response detection, standard action
@@ -344,7 +344,7 @@ still gets a clip: the note is generated from the report, and the hand-written
 The prompts the CLI is answered with are in `config/cli.config.ts` and were
 carried over from the reference run, not observed here yet — see
 `1-cli-testing/CLI-FLOW.md` for what is predicted versus verified, and
-[PORT-CLI.md](PORT-CLI.md) for how the pipeline fits together.
+[PORT-CLI.md](../.qa/recorder/PORT-CLI.md) for how the pipeline fits together.
 
 ---
 

@@ -88,13 +88,13 @@ export const PROJECT: ProjectConfig = {
   docBaseUrl: 'https://docs.copilotkit.ai/vue/google-antigravity',
 
   frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5140',
-  backendUrl: process.env.BACKEND_URL || 'http://localhost:8040',
+  backendUrl: process.env.BACKEND_URL || 'http://localhost:8141',
   // Agno's AgentOS exposes /status, not /health. The repo README's troubleshooting
   // notes call this out: the doc's suggested /copilotkit/info does not exist here.
   backendHealthPath: '/health',
 
   frontendStartCmd: './start-all.sh   (Vite on 5140, runtime server.antigravity.ts on 8140)',
-  backendStartCmd: 'Antigravity-react/start-all.sh   (agent on 8040)',
+  backendStartCmd: './start-all.sh   (own backend/ quickstart agent on 8141)',
 
   demoSuffix: '',
 

@@ -1,7 +1,7 @@
 /**
  * Pages of https://docs.copilotkit.ai/vue/google-antigravity under test. The Vue app is a single
  * Vite app with no router, so both clips drive http://localhost:5140/. Its runtime is the harness's
- * server.antigravity.ts (HttpAgent -> Antigravity on 8040), because the doc's BuiltInAgent server.ts
+ * server.antigravity.ts (HttpAgent -> own Antigravity backend on 8141), because the doc's BuiltInAgent server.ts
  * never reaches Antigravity (FINDINGS.md #1) and the OpenAI key it needs has no credit.
  */
 import { definePages } from '../core/types';

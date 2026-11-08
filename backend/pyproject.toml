@@ -1,0 +1,10 @@
+[project]
+name = "backend"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "ag-ui-antigravity>=0.2.1",
+    "fastapi>=0.162.0",
+    "google-antigravity>=0.1.23",
+    "uvicorn>=0.54.0",
+]

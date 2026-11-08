@@ -1,5 +1,6 @@
 import { type Locator, type Page } from 'playwright';
 import { humanClick, humanGlide, sleep } from '../core/overlays/cursor';
+import { describe, tracked } from '../core/timeline';
 
 /**
  * Glide the on-screen cursor to an element and click it, the way the other
@@ -7,14 +8,17 @@ import { humanClick, humanGlide, sleep } from '../core/overlays/cursor';
  * yet (mid-layout), so a take never stalls on the cursor overlay.
  */
 export async function glideClick(page: Page, target: Locator): Promise<void> {
-  await target.scrollIntoViewIfNeeded().catch(() => {});
-  const box = await target.boundingBox();
-  if (box) {
-    await humanGlide(page, box.x + box.width / 2, box.y + box.height / 2, 20);
-    await humanClick(page);
-  } else {
-    await target.click();
-  }
+  // Logged to events.jsonl (ok, or the error) and rethrown unchanged.
+  await tracked('click', describe(target), async () => {
+    await target.scrollIntoViewIfNeeded().catch(() => {});
+    const box = await target.boundingBox();
+    if (box) {
+      await humanGlide(page, box.x + box.width / 2, box.y + box.height / 2, 20);
+      await humanClick(page);
+    } else {
+      await target.click();
+    }
+  });
 }
 
 /** Rest the cursor on an element so the viewer's eye lands there. */
