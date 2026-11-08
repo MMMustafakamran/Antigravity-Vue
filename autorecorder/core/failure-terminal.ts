@@ -111,6 +111,22 @@ export function pickShell(): ShellSpec | null {
   return null;
 }
 
+const CRASH = /Traceback \(most recent call last\)|ModuleNotFoundError|ImportError|Cannot find module|EADDRINUSE|Error loading ASGI app/;
+
+/** True when a log's last lines are a startup crash (the server behind it is dead). */
+function endsInCrash(src: LogSource): boolean {
+  try {
+    const tail = readFileSync(src.path, 'utf8')
+      .replace(/\x1b\[[0-9;]*[A-Za-z]/g, '')
+      .split(/\r?\n/)
+      .filter((l) => l.trim())
+      .slice(-20);
+    return tail.some((l) => CRASH.test(l));
+  } catch {
+    return false;
+  }
+}
+
 /** The lines this page added to a log (since its offset), or [] if unreadable. */
 function newLines(src: LogSource): string[] {
   try {
@@ -139,8 +155,12 @@ export const GREP_PATTERN = 'error|exception|failed|404|rendered nothing';
 export function pickLogs(logs: LogSource[], max = 3): { logs: LogSource[]; grepLog: LogSource | null } {
   const scored = logs.map((src) => {
     const lines = newLines(src);
-    return { src, grew: lines.length > 0, hasError: findAnchor(lines) >= 0 };
+    return { src, grew: lines.length > 0, hasError: findAnchor(lines) >= 0, dead: false };
   });
+  // A server that crashed at startup never writes during the take, yet its log holds the cause
+  // (e.g. ModuleNotFoundError behind "fetch failed"). A log that ends in a crash and stayed silent
+  // counts as grown, with an error.
+  for (const s of scored) if (!s.grew && endsInCrash(s.src)) Object.assign(s, { grew: true, hasError: true, dead: true });
   const grown = scored.filter((s) => s.grew);
   const pool = grown.length ? grown : scored;
   const ordered = [...pool.filter((s) => !s.hasError), ...pool.filter((s) => s.hasError)].slice(-max);
