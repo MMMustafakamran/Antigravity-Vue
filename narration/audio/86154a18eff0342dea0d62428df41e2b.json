@@ -1,0 +1,9 @@
+{
+ "text": "Moving on to the demo. So I asked the chat what this app can do, and it answered fine. This answer comes from the Antigravity backend, but only through my harness agent. With the doc's own server, umm, it would just be OpenAI, and Antigravity is never involved.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 18.669,
+ "file": "86154a18eff0342dea0d62428df41e2b.mp3",
+ "clip": "ANTIGRAVITY-vue-01-Quickstart",
+ "at": "demo"
+}

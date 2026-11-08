@@ -1,0 +1,9 @@
+{
+ "text": "So this is my project, with the doc's server dot ts and Vue app, and CopilotKit one point eighty-four point one. The doc's server only registers a built in agent with OpenAI, umm, nothing connects to Antigravity. This other file, server dot antigravity dot ts, is my harness change, an HTTP agent to the Antigravity backend, so the demo runs.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 24.661,
+ "file": "981e5f87e6961e94e9c4bd8e02eac4ae.mp3",
+ "clip": "ANTIGRAVITY-vue-01-Quickstart",
+ "at": "ide"
+}

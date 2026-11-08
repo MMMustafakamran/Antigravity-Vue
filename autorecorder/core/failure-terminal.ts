@@ -127,7 +127,9 @@ function newLines(src: LogSource): string[] {
   }
 }
 
-export const GREP_PATTERN = 'error|exception|failed|404';
+// `rendered nothing`: CopilotKit's dev warning when a tool call (e.g. render_ui) has no renderer;
+// Next forwards it to the frontend log as `[browser] ...`, and it is the cause on generative-UI pages.
+export const GREP_PATTERN = 'error|exception|failed|404|rendered nothing';
 
 /**
  * Which logs to look at, in the order to look at them: logs this page wrote to

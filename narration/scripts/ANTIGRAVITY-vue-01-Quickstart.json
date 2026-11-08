@@ -7,15 +7,15 @@
   },
   {
    "at": "ide",
-   "text": "So this is my project. This is the server dot ts and the Vue app, uh, from the doc's steps, and these are the CopilotKit versions, one point eighty-four point one. Basically the server registers a built in agent with OpenAI, exactly like the doc says. And umm, there's nothing here that connects to an Antigravity agent. No HTTP agent, no Antigravity server URL, nothing like that."
+   "text": "So this is my project, with the doc's server dot ts and Vue app, and CopilotKit one point eighty-four point one. The doc's server only registers a built in agent with OpenAI, umm, nothing connects to Antigravity. This other file, server dot antigravity dot ts, is my harness change, an HTTP agent to the Antigravity backend, so the demo runs."
   },
   {
    "at": "demo",
-   "text": "Moving on to the demo. So I asked the chat what this app can do, and it answered fine. But this answer is coming from OpenAI, through the built in agent. Antigravity is never involved at all, so umm, this isn't really an Antigravity quickstart. It's just the generic Vue setup with an OpenAI model."
+   "text": "Moving on to the demo. So I asked the chat what this app can do, and it answered fine. This answer comes from the Antigravity backend, but only through my harness agent. With the doc's own server, umm, it would just be OpenAI, and Antigravity is never involved."
   },
   {
    "at": "evidence",
-   "text": "Back on the live doc. In the browser, this page just shows the Antigravity landing page, and uh, the embedded live demo gives a four oh four. There's no Vue quickstart on it at all."
+   "text": "Back on the live doc. In the browser it's just the Antigravity landing page, and uh, the demo gives a four oh four. No Vue quickstart here."
   },
   {
    "at": "evidence#2",
@@ -27,7 +27,7 @@
   },
   {
    "at": "+",
-   "text": "So basically, someone following this page gets a working chat, but uh, it's not Antigravity at all. So yeah, kindly check this and fix it."
+   "text": "So following this page, you get a chat, uh, but not Antigravity. So yeah, kindly check this and fix it."
   }
  ]
 }

@@ -1018,6 +1018,12 @@ export class RecordingEngine {
         if (docNote) warnings.push(docNote);
         console.log(`   📄 Page is doc-only (empty section). Pausing for viewing...`);
         await pause(config.docViewDurationMs ?? 6000);
+        if (config.docOnlyAction) {
+          // A doc-only finding: the page's action highlights the faulty text and types the note.
+          mark('action');
+          await executePageAction(page, config, this.rootDir, ctx);
+          if (actionFailures.length > 0) fail(actionFailures.join('; '));
+        }
         console.log(`✅ Doc-only recording completed for ${config.id}.`);
         recordSuccess = !recordError;
         throw new DocOnlyDone();

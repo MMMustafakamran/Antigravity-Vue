@@ -113,6 +113,13 @@ export interface PageDefinition {
   /** How long to hold on the doc page when `docOnly` (defaults to 6000ms). */
   docViewDurationMs?: number;
 
+  /**
+   * With `docOnly`: run the page's action after the doc read (no IDE, no demo), e.g. a doc-only
+   * finding clip that highlights the faulty text and types the Notepad note. The action gets the
+   * doc page as it was left; a `ctx.fail` from it fails the take like a demo failure would.
+   */
+  docOnlyAction?: boolean;
+
   /** Per-page overrides of the recorder's fixed waits. See `RecorderTimeouts`. */
   timeouts?: Partial<RecorderTimeouts>;
 

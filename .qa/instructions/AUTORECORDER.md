@@ -2,6 +2,17 @@
 
 Applies to every repo's `autorecorder/` (`cli.ts` → `core/engine.ts` → `actions/*.ts`; config in `config/{pages,project,selectors}.config.ts`; output in `videos/`). Commands per repo: `npm run record[:all|:list|:doctor]`.
 
+## 0. Probe first, film last (owner, 2026-11-08)
+
+Two tools, two jobs:
+
+| Tool | When | What it does |
+|---|---|---|
+| **probe** (`npx tsx ../.qa/tools/probe.mts <page-id>... [--all] [--prompt ".."] [--headed] [--video]`, run from `autorecorder/`) | Exploring a page, checking a finding, verifying a fix, anything where the result isn't known yet | Headless, parallel (3 at a time). Opens the demo route, types the prompt, waits for the reply to settle, saves `videos/probe/<page>/final.png`, a screenshot every 5 s and `result.json` (reply text, errors on screen, console errors, failed requests, timing). No doc tour, IDE, Notepad or humanizing. ~20-60 s per page. |
+| **record** (`npm run record -- <page-id>`) | Only once a page's status and finding text are final | The full humanized clip for delivery (sections 1-4). |
+
+Never use a full humanized take to find out what a page does.
+
 ## 1. Clips must look hand-recorded
 
 - Scroll with the real mouse wheel. Move the cursor with the human glide helpers.
