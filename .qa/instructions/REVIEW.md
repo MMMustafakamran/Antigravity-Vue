@@ -59,7 +59,7 @@ window titled `Error console — <page-id>`: a real bash session where `ls logs/
 **Never flag it**: not as an overlay, not as a glitch, not as "a harness failure on screen". Its
 red text is not an overlay. Do read it, and read `logs/<page-id>.error.log`: its **Recorder verdict** section (not on camera) is the recorder's summary of the error.
 
-Also never flag: the Next.js dev "N Issue" badge or error overlay (real errors, evidence), a red
+Also never flag: a Next.js error overlay (real errors, evidence; the "N Issues" badge is turned off on purpose, `devIndicators: false`), a red
 error card rendered by CopilotKit or the app, the docs site's own callouts (yellow "Not
 available…", blue/purple "Not supported…"), blue drag-selection.
 
