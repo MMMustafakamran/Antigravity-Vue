@@ -75,7 +75,7 @@ available…", blue/purple "Not supported…"), blue drag-selection.
 | ✅ page now fails | Expected ✅, but the demo shows an error, nothing rendered, a failed checkpoint, or the failure terminal. |
 | glitch | Black stretch, frozen screen past a plausible wait (`checks.freezes[].ok == false`), marks out of order or past the end, clip cut off, a step that clearly misfired (cursor clicking nothing, wrong page, stuck loading), harness trouble that isn't the doc's fault (server not running, connection refused, wrong port, recorder crash before the demo). |
 | injected overlay | Anything drawn onto the page by the recorder: red boxes/outlines, caption pills with explanatory text, arrows, "FINDING" banners. Check every `checks.look_at` red run frame. |
-| missing segment | ❌/⚠️ clip without demo → evidence (drag-select) → Notepad; ✅ clip with a Notepad (except the temperature-only case, [QA-RULES.md](QA-RULES.md) §7). |
+| missing segment | Level-1 ❌ clip without demo → evidence (drag-select) → Notepad (level-2 pages, `KNOWN_ISSUE`, end after the demo on purpose: not missing); ✅ clip with a Notepad (except the temperature-only case, [QA-RULES.md](QA-RULES.md) §7). |
 | formal Notepad | Headings, numbered/bulleted lists, ALL-CAPS title, long `https://` URLs. Casual lowercase with small typos is correct. |
 | audio-fit | CI's fit flagged a narration line (`overlap`, `gap`, `past-end`): the saved line no longer fits the new marks. Report the line and the flag; never rewrite it (rewrites are local only). |
 | status honesty | ⚠️ is only for "main feature works, minor defect". If the main feature fails, the right status is ❌: flag it. If in doubt whether the main feature works, it is ❌. |

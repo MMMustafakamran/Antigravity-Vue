@@ -1,6 +1,6 @@
 # Voice narration rules
 
-Applies to every clip that reports a broken doc page (❌ in the report). Only blockers get narration ([QA-RULES.md](QA-RULES.md) §8a); working and minor-issue clips have none. The narration covers the whole video, in the owner's cloned voice, as if recorded live.
+Applies to every clip that reports a broken doc page: level 1 (blocker, full script) and level 2 (already reported ⚠️/❌, short script) of [QA-RULES.md](QA-RULES.md) §8a. Working and minor-issue clips have none. The narration covers the whole video, in the owner's cloned voice, as if recorded live.
 
 ## 1. Voice
 
@@ -54,6 +54,16 @@ Applies to every clip that reports a broken doc page (❌ in the report). Only b
    - "Alright, that's the issue, kindly sort it out."
    - "So yeah, kindly check this and fix it."
 7. Style: casual, short sentences, natural fillers ("ok so", "basically", "yeah"), plus **a few "umm" / "uh" / "ahh"** (one or two per segment, at natural hesitation points, not every sentence). Don't over-explain. Spell out what TTS would misread ("one point eighty-four point one", "example dot com").
+
+## 5a. Short script (level 2: already reported)
+
+The clip is doc → IDE → demo and ends there. Three to four lines:
+1. `doc`: the page + framework, "and I have implemented this page" (rule 1).
+2. `ide` (optional): "this is the code from the doc".
+3. `demo`: "moving on to the demo", then what went wrong, as a result (rule 2), in one or two sentences. Same problem as the report row.
+4. `+` after the demo line: a varied polite ending (rule 6).
+
+No reasons or root-cause explaining: the team already reported it.
 
 ## 6. Reuse
 

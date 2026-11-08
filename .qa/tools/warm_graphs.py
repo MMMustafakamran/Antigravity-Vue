@@ -41,7 +41,7 @@ def page_routes(ids):
 
 
 def app_dirs():
-    return [d for d in (ROOT / "frontend" / "app", ROOT / "frontend" / "src") if d.is_dir()]
+    return [d for d in (ROOT / "frontend" / "app",) if d.is_dir()]
 
 
 def runtime_maps():
@@ -106,8 +106,9 @@ def main():
     all_graphs = set(by_graph)
     ids = [p for p in a.pages.split(",") if p.strip()]
     routes = page_routes(ids) if ids else None
-    if routes is None:
-        need, why = all_graphs, "no page list" if not ids else "no pages.config.ts"
+    if routes is None or not app_dirs():
+        need, why = all_graphs, ("no page list" if not ids else "no pages.config.ts" if routes is None
+                                 else "no frontend/app (route mapping is Next.js only): warming all")
     else:
         need, unresolved = graphs_for(routes, all_graphs)
         why = f"{len(ids)} page(s)"

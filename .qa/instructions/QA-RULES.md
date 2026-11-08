@@ -69,19 +69,22 @@ When a page's published agent fails **only** because of a `temperature` value th
 
 Lesson learned: many rows were marked ⚠️ when the feature didn't work (e.g. the agent says it rendered a card and no card appears). That is ❌. If in doubt whether the main feature works, it is ❌.
 
-## 8a. Blockers only (owner, 2026-11-08)
+## 8a. Report as little as possible: 4 levels (owner, 2026-11-08)
 
-Only **blockers** are explained in clips and in the report. Everything else is a minor note in `FINDINGS.md` and nowhere else. The goal: never miss a big bug, never spend owner time explaining a small one.
+Every explained error costs the owner work (explaining it, keeping it known every day). Report only what a reader of the page would really be stopped by, stay consistent with the previous tester (the QA team's testing doc, see REPORT.md), and never miss a big bug.
 
-| Level | When | Clip | Report row | FINDINGS.md |
-|---|---|---|---|---|
-| **Blocker ❌** | The page's main feature does not work when you follow the page: crash, server won't start, nothing renders, the agent never replies, code missing so the page can't be built | Full finding clip: demo → doc highlight → Notepad → narration | ❌ + one `Issue:` line (or the hard-failure block) | Full entry (Dev blockers) |
-| **Minor** | Anything a developer fixes in seconds or never notices: missing import / `"use client"` / helper, type or build-only errors, env not loaded, `temperature`, wrong comments, cosmetic | Plain working clip: no Notepad, no highlight, no narration | ✅ `Working`, no notes | One line under *Minor notes* |
+| Level | When | Report row | Clip | Voice-over | FINDINGS.md |
+|---|---|---|---|---|---|
+| **1. Blocker** ❌ | The page's main feature does not work when you follow the page: crash / won't compile or start with no obvious fix, nothing renders, the agent never replies, an error on every run, wrong-framework code, a missing piece that needs guesswork (frontend, backend, graph) | ❌ + one `Issue:` line (or the hard-failure block) | Full: doc → IDE → demo → doc highlight → Notepad | Yes, full script | Dev blockers entry |
+| **2. Already reported** ⚠️/❌ | The team doc already flags the page and ours fails the same way | The team's emoji; the same problem in **our own short wording** when theirs is unclear or sloppy | Short: doc → IDE → demo, ends there (no highlight, no Notepad; doc-only pages keep the highlight). `KNOWN_ISSUE` in the repo's actions | Yes, short script (VOICE.md §5a) | Dev blockers entry |
+| **3. Minor** ✅ | A developer fixes it in seconds: missing import / `"use client"` / obvious helper, wrong `runtime-url`, `.env` not loaded, `temperature`, a missing install step | ✅ `Working` + one short `Note:` | Plain working clip (obvious fix as a `HARNESS` line) | No | One line under *Minor notes* |
+| **4. Ignore** | Type or build-only errors, the Next.js "N Issues" badge, cosmetic gaps, wrong comments, harness-only trouble | Nothing | Nothing | No | One line at most |
 
-- **Obvious tiny fixes are allowed** to reach a working page (a missing import, `"use client"`, an undefined helper with an obvious body, the temperature line): make them as `HARNESS` lines and log a minor note. Anything that needs guesswork (missing component logic, missing backend, wrong framework code) stays a blocker.
-- **Anchor on the QA team's testing doc** (see REPORT.md): team ✅ and ours works → ✅. Team ⚠️/❌ and ours fails the same way → report it with **their wording**. Team ✅ but our clip shows a real blocker → a *new big bug*: show the owner first; full clip only after approval. Team ⚠️/❌ but ours works → ✅ ("now working").
-- `⚠️` only where the team already reported ⚠️ and our clip shows the same thing.
-- Narration is generated only for ❌ clips.
+- **Team ✅ but ours is a level-1 blocker** → a *new big bug*: show the owner first (probe evidence); full clip only after approval.
+- **Team ⚠️/❌ but ours works** → ✅ ("now working").
+- `⚠️` only where the team used ⚠️ for the same problem.
+- Anything that needs guesswork to fix stays level 1, even if a harness workaround exists.
+- When unsure between levels 1 and 3, ask: would a reader following the page get stuck? Yes → 1. A minute of fixing → 3.
 
 ## 9. Scope: reachable pages only
 
