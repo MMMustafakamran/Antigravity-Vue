@@ -147,8 +147,15 @@ jobs:
           for i in 1 2 3; do python3 -m pip install --user --quiet "uv==0.9.*" && break; echo "uv install attempt $i failed; retrying"; sleep 10; done
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           "$HOME/.local/bin/uv" --version
-      - name: Sync backend (uv, python from pyproject)
-        run: cd backend && uv sync
+      # Python from the runner's tool cache (actions/setup-python), never downloaded by uv:
+      # uv's own Python download (github.com release assets) kept failing on runners.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Sync backend (uv, runner Python 3.13; doc requires >=3.13)
+        env:
+          UV_PYTHON_DOWNLOADS: never
+        run: cd backend && uv sync --python "$(command -v python3.13 || command -v python3)"
 
       - name: Install dependencies
         timeout-minutes: 20
