@@ -157,11 +157,21 @@ jobs:
           UV_PYTHON_DOWNLOADS: never
         run: cd backend && uv sync --python "$(command -v python3.13 || command -v python3)"
 
+      - name: Cache node_modules + Playwright browser
+        id: nm-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            my-copilot-app/node_modules
+            autorecorder/node_modules
+            ~/.cache/ms-playwright
+          key: nm-${{ runner.os }}-node22-v1-${{ hashFiles('my-copilot-app/package-lock.json', 'autorecorder/package-lock.json') }}
       - name: Install dependencies
         timeout-minutes: 20
         run: |
           set -euo pipefail
           for d in my-copilot-app autorecorder; do
+            if [ "${{ steps.nm-cache.outputs.cache-hit }}" = "true" ] && [ -d "$d/node_modules" ]; then echo "$d: node_modules from cache"; continue; fi
             if [ -f "$d/package-lock.json" ]; then npm ci --prefix "$d" --no-audit --no-fund
             else npm install --prefix "$d" --no-audit --no-fund; fi
           done
@@ -221,6 +231,29 @@ jobs:
             npm run record -- "--pages=$PAGES" 2>&1 | tee ../logs/record.log
           echo "exit=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
           # A failed take is usually the doc defect itself: never fail the job here.
+          exit 0
+
+      - uses: actions/setup-python@v5
+        if: always()
+        with:
+          python-version: '3.12'
+      - name: Cache static ffmpeg
+        if: always()
+        uses: actions/cache@v4
+        with:
+          path: ~/ffmpeg-static
+          key: ffmpeg-static-linux64-v1
+      - name: Clip checks for this shard (the report job reuses them)
+        if: always()
+        run: |
+          set +e
+          if [ ! -x ~/ffmpeg-static/ffmpeg ]; then
+            mkdir -p ~/ffmpeg-static
+            curl -fsSL --retry 3 https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz               | tar -xJ --strip-components=1 -C ~/ffmpeg-static
+          fi
+          export PATH="$HOME/ffmpeg-static:$PATH"
+          python -m pip install -q numpy
+          python .qa/tools/ci_post.py --checks-only --videos autorecorder/videos --out out/run             || echo "::warning::shard checks failed; the report job checks these clips itself"
           exit 0
 
       - name: Upload shard (temporary)

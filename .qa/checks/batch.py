@@ -15,6 +15,7 @@ A .mp4 is skipped when a .webm of the same name is in the same input (the .webm 
 from __future__ import annotations
 
 import argparse
+import shutil
 import concurrent.futures as cf
 import json
 import sys
@@ -53,18 +54,48 @@ def collect(inputs: list[str], expect: str | None) -> list[dict]:
     return items
 
 
-def run_one(it: dict, out: Path, frames: bool) -> dict:
+def _row(r: dict) -> dict:
+    return {"clip": r["clip"], "expect": r["expect_status"], "ok": r["ok"], "issues": r["issues"],
+            "status_signals": r["status_signals"], "look_at": r["look_at"],
+            "red_runs": [[x["start"], x["end"] + 1, x["segment"]] for x in r["red_runs"]],
+            "timeline": bool(r["timeline"]), "events": bool(r["events"]),
+            "duration": r["duration"], "runtime_s": r["runtime_s"], "json": f"{r['clip']}.checks.json"}
+
+
+def _reused(it: dict, out: Path, reuse: list[Path]) -> dict | None:
+    """A result a CI shard already computed for this clip (same expected status): copy it, skip the decode."""
+    stem = Path(it["clip"]).stem
+    for d in reuse:
+        j = d / f"{stem}.checks.json"
+        if not j.exists():
+            continue
+        try:
+            r = json.loads(j.read_text(encoding="utf-8"))
+        except ValueError:
+            continue
+        if r.get("expect_status") != it.get("expect_status"):
+            continue
+        if d.resolve() != out.resolve():
+            shutil.copy2(j, out / j.name)
+            fr = d / f"{stem}.checks"
+            if fr.is_dir():
+                shutil.copytree(fr, out / fr.name, dirs_exist_ok=True)
+        return _row(r)
+    return None
+
+
+def run_one(it: dict, out: Path, frames: bool, reuse: list[Path] | None = None) -> dict:
     t0 = time.time()
     try:
+        if reuse:
+            row = _reused(it, out, reuse)
+            if row:
+                return row
         r = checks.run_checks(Path(it["clip"]), out,
                               Path(it["timeline"]) if it.get("timeline") else None,
                               Path(it["events"]) if it.get("events") else None,
                               it.get("expect_status"), it.get("note"), frames)
-        return {"clip": r["clip"], "expect": r["expect_status"], "ok": r["ok"], "issues": r["issues"],
-                "status_signals": r["status_signals"], "look_at": r["look_at"],
-                "red_runs": [[x["start"], x["end"] + 1, x["segment"]] for x in r["red_runs"]],
-                "timeline": bool(r["timeline"]), "events": bool(r["events"]),
-                "duration": r["duration"], "runtime_s": r["runtime_s"], "json": f"{r['clip']}.checks.json"}
+        return _row(r)
     except Exception as e:  # one bad clip never stops the batch
         return {"clip": Path(it["clip"]).stem, "expect": it.get("expect_status"), "ok": False,
                 "issues": [f"checks crashed: {e}"], "status_signals": [], "look_at": [], "red_runs": [],
@@ -95,6 +126,8 @@ def main(argv=None) -> int:
     ap.add_argument("--jobs", type=int, default=3, help="clips checked at once (each runs 2 ffmpeg decodes)")
     ap.add_argument("--expect", help="default expected status for clips without one")
     ap.add_argument("--no-frames", action="store_true")
+    ap.add_argument("--reuse", type=Path, action="append", default=[],
+                    help="folder(s) with <clip>.checks.json already computed (CI shards); those clips are not re-checked")
     ap.add_argument("--fail-on-issues", action="store_true")
     a = ap.parse_args(argv)
     if hasattr(sys.stdout, "reconfigure"):
@@ -103,7 +136,7 @@ def main(argv=None) -> int:
     a.out.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     with cf.ThreadPoolExecutor(max(1, a.jobs)) as ex:
-        rows = list(ex.map(lambda it: run_one(it, a.out, not a.no_frames), items))
+        rows = list(ex.map(lambda it: run_one(it, a.out, not a.no_frames, a.reuse), items))
     path = write_summary(rows, a.out, time.time() - t0)
     print(path.read_text(encoding="utf-8"))
     return 1 if (a.fail_on_issues and any(not r["ok"] for r in rows)) else 0

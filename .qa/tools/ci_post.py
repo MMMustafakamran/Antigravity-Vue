@@ -6,6 +6,7 @@ After the recorder ran:
      and whose clip was recorded: `narrate.py fit`, then `mix` with the saved narration/audio.
      A flagged line or a line without saved audio is recorded, never fatal.
   2. checks: `.qa/checks/batch.py` over every recorded clip, expected status from assignment.json.
+     Clips a shard already checked (`--checks-only`, uploaded in videos/_shard-checks/) are reused.
   3. summary.md: record results, drift, narration, checks.
 
   python tools/ci_post.py --videos autorecorder/videos --out out/run [--drift out/run/drift/drift.md]
@@ -17,9 +18,14 @@ import json
 import os
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 NARRATE_STATUSES = ("❌", "⚠️")
+JOBS = max(2, os.cpu_count() or 2)
+# Shards run the clip checks next to the recording (--checks-only) and upload them here; the
+# report job reuses them instead of decoding every clip again.
+SHARD_CHECKS = "_shard-checks"
 
 
 def load_pages(root):
@@ -58,6 +64,7 @@ def narrate(root, videos, out, pages, py):
         env["NARRATE_VOICE_JSON"] = str(narr / "voice.json")
     nout = out / "narration"
     nout.mkdir(parents=True, exist_ok=True)
+    todo = []
     for s in sorted(script_dir.glob("*.json")):
         try:
             clip = json.loads(s.read_text(encoding="utf-8"))["clip"]
@@ -68,12 +75,16 @@ def narrate(root, videos, out, pages, py):
         status = page.get("status")
         if status not in NARRATE_STATUSES:
             continue
-        webm, tl = videos / f"{clip}.webm", videos / f"{clip}.timeline.json"
         row = {"clip": clip, "page": page.get("id"), "status": status, "flags": [], "noAudio": []}
         rows.append(row)
+        todo.append((s, clip, row))
+
+    def one(job):
+        s, clip, row = job
+        webm, tl = videos / f"{clip}.webm", videos / f"{clip}.timeline.json"
         if not webm.exists() or not tl.exists():
             row["result"] = "not recorded" if not webm.exists() else "no timeline"
-            continue
+            return
         fit_p = nout / f"{clip}.fit.json"
         rc, so, se = run([py, str(n), "fit", str(s), str(tl), "--clip", str(webm),
                           "--audio-dir", str(narr / "audio"), "--out", str(fit_p)], env)
@@ -88,16 +99,20 @@ def narrate(root, videos, out, pages, py):
             row["flags"] = [f"fit failed (exit {rc}): {tail(se, 2)}"]
         if row["noAudio"]:
             row["result"] = "raw clip only (lines without saved audio)"
-            continue
+            return
         mp4 = nout / f"{clip}.narrated.mp4"
         rc, so, se = run([py, str(n), "mix", str(s), str(webm), str(tl), str(mp4),
                           "--audio-dir", str(narr / "audio")], env)
         (nout / f"{clip}.mix.txt").write_text(so + se, encoding="utf-8")
         row["result"] = "narrated" if rc == 0 and mp4.exists() else f"mix failed: {tail(se, 2)}"
+
+    # One ffmpeg mix per clip, several at once (each is mostly single-threaded encode work).
+    with ThreadPoolExecutor(max_workers=JOBS) as ex:
+        list(ex.map(one, todo))
     return rows, None
 
 
-def checks(root, videos, out, pages, py):
+def checks(root, videos, out, pages, py, reuse=()):
     batch = root / ".qa" / "checks" / "batch.py"
     clips = sorted(glob.glob(str(videos / "*.webm")))
     if not batch.exists():
@@ -116,7 +131,10 @@ def checks(root, videos, out, pages, py):
     cout.mkdir(parents=True, exist_ok=True)
     mp = cout / "manifest.json"
     mp.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
-    rc, so, se = run([py, str(batch), str(mp), "--out", str(cout), "--jobs", "2"])
+    cmd = [py, str(batch), str(mp), "--out", str(cout), "--jobs", str(JOBS)]
+    for d in reuse:
+        cmd += ["--reuse", str(d)]
+    rc, so, se = run(cmd)
     (cout / "batch.log").write_text(so + se, encoding="utf-8")
     sm = cout / "summary.md"
     if sm.exists():
@@ -147,6 +165,8 @@ def main():
     ap.add_argument("--out", type=Path, default=Path("out/run"))
     ap.add_argument("--drift", type=Path, help="drift.md to include")
     ap.add_argument("--title", default=os.environ.get("GITHUB_REPOSITORY", "QA run"))
+    ap.add_argument("--checks-only", action="store_true",
+                    help="CI shard: run the clip checks only, into <videos>/_shard-checks (no narration, no summary)")
     a = ap.parse_args()
     root, out = a.root.resolve(), a.out.resolve()
     videos = a.videos if a.videos.is_absolute() else (root / a.videos)
@@ -154,8 +174,13 @@ def main():
     py = sys.executable
     pages = load_pages(root)
 
+    if a.checks_only:
+        sc = videos / SHARD_CHECKS
+        print(checks(root, videos, sc, pages, py))
+        return 0
+    reuse = sorted(p for p in videos.glob(f"{SHARD_CHECKS}/checks") if p.is_dir())
     rows, skipped = narrate(root, videos, out, pages, py)
-    chk = checks(root, videos, out, pages, py)
+    chk = checks(root, videos, out, pages, py, reuse)
 
     md = [f"# {a.title} daily run\n"]
     md.append("## Recording\n\n" + record_md(videos))
