@@ -81,8 +81,10 @@ const label = (n) => {
   (function w(x) { if (typeof x === "string") s.push(x); else if (Array.isArray(x)) x.forEach(w); else if (x && typeof x === "object" && "children" in x) w(x.children); })(n);
   return s.filter((x) => !x.startsWith("$") && x.trim()).pop() ?? "";
 };
-async function liveSidebar() {
-  const r = await get(`${ORIGIN}/${ROOT}`);
+// root: another docs root whose own sidebar lists a page (assignment page `sidebarRoot`, e.g. each
+// /vue/<framework> quickstart sits in its framework's sidebar, not in /vue's). Default: ROOT.
+async function liveSidebar(root = ROOT) {
+  const r = await get(`${ORIGIN}/${root}`);
   if (r.status !== 200) return { error: r.error || `HTTP ${r.status}` };
   let rsc = "";
   for (const m of r.text.matchAll(/self\.__next_f\.push\(\[1,("(?:[^"\\]|\\.)*")\]\)/g)) { try { rsc += JSON.parse(m[1]); } catch {} }
@@ -163,7 +165,7 @@ function overlap(a, b) {
 const tracked = new Map(); // base docPath -> { reachable, status, excluded, ids }
 for (const p of assignment.pages) {
   const d = baseDoc(p.docPath);
-  const t = tracked.get(d) || { reachable: p.reachable, status: p.status, excluded: !!p.excluded, labels: [] };
+  const t = tracked.get(d) || { reachable: p.reachable, status: p.status, excluded: !!p.excluded, labels: [], sidebarRoot: p.sidebarRoot || null };
   if (p.reachable === "sidebar" || (p.reachable === "in-content" && t.reachable !== "sidebar")) t.reachable = p.reachable;
   if (!p.excluded) t.excluded = false;
   if (["❌", "⚠️"].includes(p.status)) t.status = p.status;
@@ -279,7 +281,14 @@ async function check() {
     for (const [d, t] of tracked) {
       if (!inScope(d)) continue;
       const u = urlOf(d), row = report.pages.find((p) => p.docPath === d);
-      let now = row?.state === "gone" ? "gone" : sidebarSet.has(u) ? "sidebar" : linkSet.has(u) ? "in-content" : "none";
+      let inSb = sidebarSet.has(u);
+      if (!inSb && t.sidebarRoot && t.sidebarRoot !== ROOT) {
+        const own = await liveSidebar(t.sidebarRoot);
+        if (own.error) report.unknown.push(`sidebar of ${t.sidebarRoot}: ${own.error}`);
+        inSb = !own.error && own.pages.some((p) => p.url === u);
+        if (own.error && (t.reachable || "none") === "sidebar") inSb = true; // unknown, not removed
+      }
+      let now = row?.state === "gone" ? "gone" : inSb ? "sidebar" : linkSet.has(u) ? "in-content" : "none";
       if (now !== "gone" && now !== (t.reachable || "none") && now !== "sidebar") {
         // The rendered page can redirect where the .md export doesn't (e.g. /vue/<fw>/quickstart
         // -> /vue/<fw>, the sidebar's "Quickstart"): a reader lands on the redirect target.
