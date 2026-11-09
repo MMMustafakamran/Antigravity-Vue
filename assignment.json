@@ -4,8 +4,8 @@
  "repo": "Antigravity-vue",
  "docBase": "https://docs.copilotkit.ai/vue/google-antigravity/",
  "versions": {
-  "@copilotkit/vue": "1.84.1",
-  "@copilotkit/runtime": "1.84.1",
+  "@copilotkit/vue": "1.85.0",
+  "@copilotkit/runtime": "1.85.0",
   "vue": "3.5.44",
   "vite": "8.3.5",
   "tsx": "4.23.15"
