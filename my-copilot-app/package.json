@@ -11,8 +11,8 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
-    "@copilotkit/runtime": "^1.84.1",
-    "@copilotkit/vue": "^1.84.1",
+    "@copilotkit/runtime": "^1.85.0",
+    "@copilotkit/vue": "^1.85.0",
     "vue": "^3.5.42"
   },
   "devDependencies": {
