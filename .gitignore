@@ -27,3 +27,6 @@ narration/**/*.fit.json
 reference-*.wav
 ref16k.wav
 sample-full.wav
+
+# generated after install by autorecorder/scripts/write-versions.mjs
+my-copilot-app/VERSIONS.md

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * frontend/VERSIONS.md — the file the Quickstart demo puts on screen.
+ * my-copilot-app/VERSIONS.md — the file the Quickstart demo puts on screen.
  *
  * The Quickstart clip has always led with the dependency manifest, on the
  * reasoning that a demo is only meaningful against known versions. But
@@ -29,7 +29,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(HERE, '..', '..');
 const FRONTEND_DIR = path.join(ROOT_DIR, 'my-copilot-app');
-const BACKEND_DIR = path.join(ROOT_DIR, '..', 'Antigravity-react', 'backend');
+// This repo's own backend dir (never a sibling repo: CI only has this checkout).
+const BACKEND_DIR = path.join(ROOT_DIR, 'backend');
 const OUT = path.join(FRONTEND_DIR, 'VERSIONS.md');
 
 /**
@@ -113,6 +114,19 @@ function backendVersions(dir) {
   return out;
 }
 
+/** Node backend: every dependency in its package.json, read from its node_modules. */
+function nodeBackendVersions(dir) {
+  const out = {};
+  let pkg;
+  try {
+    pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf8'));
+  } catch {
+    return out;
+  }
+  for (const name of Object.keys(pkg.dependencies ?? {})) out[name] = resolveVersion(dir, pkg, name);
+  return out;
+}
+
 function getPackageVersions() {
   const versions = { frontend: {}, backend: {} };
   try {
@@ -128,7 +142,10 @@ function getPackageVersions() {
     // ignore
   }
   try {
-    versions.backend = backendVersions(BACKEND_DIR);
+    if (BACKEND_DIR) {
+      versions.backend = backendVersions(BACKEND_DIR);
+      if (!Object.keys(versions.backend).length) versions.backend = nodeBackendVersions(BACKEND_DIR);
+    }
   } catch {
     // ignore
   }
