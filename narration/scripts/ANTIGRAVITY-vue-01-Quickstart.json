@@ -7,7 +7,7 @@
   },
   {
    "at": "ide",
-   "text": "So this is my project, with the doc's server dot ts and Vue app, and CopilotKit one point eighty-four point one. The doc's server only registers a built in agent with OpenAI, umm, nothing connects to Antigravity. This other file, server dot antigravity dot ts, is my harness change, an HTTP agent to the Antigravity backend, so the demo runs."
+   "text": "So this is my project, with the doc's server dot ts and Vue app. The doc's server only registers a built in agent with OpenAI, umm, nothing connects to Antigravity. This other file, server dot antigravity dot ts, is my harness change, an HTTP agent to the Antigravity backend, so the demo runs."
   },
   {
    "at": "demo",
