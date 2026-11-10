@@ -74,6 +74,8 @@ Stack: `@copilotkit/vue`/`runtime` 1.85.0, `vue` 3.5.44 (declared ^3.5.42), `vit
 - #15 Inspector: only code block for disabling Inspector is React (<CopilotKit enableInspector>), Vue gets one prose line
 - #16 Threads Drawer: page says 'Without a valid Threads license, the drawer shows a locked view' but with the placeholder key it shows endless 'Loading threads...' instead
 - #17 Headless Threads: sidebar uses class="flex" (Tailwind) with no Tailwind setup on the page
+- #48 Threads Drawer: page shows no runtime code for Intelligence and agent-id="support" is never registered; public-license-key="ck_pub_..." is a placeholder (not needed once the runtime has CPK_INTELLIGENCE_API_KEY)
+- #49 Headless Threads: server.ts uses agent and verifyAppSession without defining them and registers only default, while App.vue uses agent-id="my-agent"
 - #18 Components as Tools: imports zod but no install step adds it (present only transitively)
 - #20 Tool Rendering: WeatherToolCard reads parameters.city, backend arg is location: card shows result JSON with no city name
 - #22 State Rendering: set_steps uses experimental_get_state/experimental_set_state with no import
