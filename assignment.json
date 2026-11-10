@@ -33,6 +33,18 @@
  },
  "sections": [
   {
+   "label": "Chat",
+   "cells": [
+    "Section"
+   ]
+  },
+  {
+   "label": "Threads",
+   "cells": [
+    "Section"
+   ]
+  },
+  {
    "label": "App Control",
    "cells": [
     "Section"
@@ -40,6 +52,42 @@
   },
   {
    "label": "Basics",
+   "cells": [
+    "Section"
+   ]
+  },
+  {
+   "label": "Debugging",
+   "cells": [
+    "Section"
+   ]
+  },
+  {
+   "label": "Generative UI",
+   "cells": [
+    "Section"
+   ]
+  },
+  {
+   "label": "Shared State",
+   "cells": [
+    "Section"
+   ]
+  },
+  {
+   "label": "Human in the Loop",
+   "cells": [
+    "Section"
+   ]
+  },
+  {
+   "label": "Browser Agents",
+   "cells": [
+    "Section"
+   ]
+  },
+  {
+   "label": "Multi-Agent",
    "cells": [
     "Section"
    ]
@@ -132,6 +180,650 @@
     "approvedAt": null,
     "by": null
    }
+  },
+  {
+   "id": "prebuilt-components",
+   "label": "Prebuilt Components",
+   "kind": "guide",
+   "group": "Chat",
+   "child": false,
+   "docPath": "prebuilt-components",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    10,
+    11
+   ],
+   "notes": [
+    "Note: uses agent-id my-agent which the quickstart never registers, had to add it in the runtime."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-07-PrebuiltComponents",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "slots",
+   "label": "Slots (Subcomponents)",
+   "kind": "guide",
+   "group": "Chat",
+   "child": false,
+   "docPath": "custom-look-and-feel/slots",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    12
+   ],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-08-Slots",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "headless-ui",
+   "label": "Fully Headless UI",
+   "kind": "guide",
+   "group": "Chat",
+   "child": false,
+   "docPath": "custom-look-and-feel/headless-ui",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    13
+   ],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-09-HeadlessUi",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "programmatic-control",
+   "label": "Programmatic Control",
+   "kind": "guide",
+   "group": "Chat",
+   "child": false,
+   "docPath": "programmatic-control",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    14
+   ],
+   "notes": [
+    "Issue: the only backend code on the page (_common.py) is showcase internals with undefined names, so the agent behind the Run button has to be guessed."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-10-ProgrammaticControl",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "inspector",
+   "label": "Inspector",
+   "kind": "guide",
+   "group": "Debugging",
+   "child": false,
+   "docPath": "inspector",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    15
+   ],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-11-Inspector",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "threads-drawer",
+   "label": "Threads Drawer",
+   "kind": "guide",
+   "group": "Threads",
+   "child": false,
+   "docPath": "prebuilt-components/copilot-threads-drawer",
+   "reachable": "sidebar",
+   "status": "N/A",
+   "findings": [
+    16
+   ],
+   "notes": [
+    "Note: needs the CopilotKit Intelligence platform (threads); without it the drawer stays on \"Loading threads...\"."
+   ],
+   "block": null,
+   "links": [],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "headless-threads",
+   "label": "Headless Threads",
+   "kind": "guide",
+   "group": "Threads",
+   "child": false,
+   "docPath": "headless-threads",
+   "reachable": "sidebar",
+   "status": "N/A",
+   "findings": [
+    17
+   ],
+   "notes": [
+    "Note: needs the CopilotKit Intelligence platform (threads)."
+   ],
+   "block": null,
+   "links": [],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "tool-based",
+   "label": "Components as Tools",
+   "kind": "guide",
+   "group": "Generative UI",
+   "child": false,
+   "docPath": "generative-ui/tool-based",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    18
+   ],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-14-ToolBased",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "tool-rendering",
+   "label": "Tool Rendering",
+   "kind": "guide",
+   "group": "Generative UI",
+   "child": false,
+   "docPath": "generative-ui/tool-rendering",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    19,
+    20
+   ],
+   "notes": [
+    "Issue: backend snippet uses build(), SYSTEM_PROMPT and 3 tools that are never shown; needed showcase code to run. Card also reads city but the backend tool arg is location."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-15-ToolRendering",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "state-rendering",
+   "label": "State Rendering",
+   "kind": "guide",
+   "group": "Generative UI",
+   "child": false,
+   "docPath": "generative-ui/state-rendering",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    21,
+    22
+   ],
+   "notes": [
+    "Issue: frontend reads status/draft/progress but the Antigravity backend snippet only writes steps, and the full agent shown is LangGraph code. Panel stays Idle."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-16-StateRendering",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "mcp-apps",
+   "label": "MCP Apps",
+   "kind": "guide",
+   "group": "Generative UI",
+   "child": false,
+   "docPath": "generative-ui/mcp-apps",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    23,
+    24
+   ],
+   "notes": [
+    "Issue: runtime snippet uses an undefined agent and a placeholder MCP url; with those filled in the Excalidraw app frame shows up blank in the chat."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-17-McpApps",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "shared-state",
+   "label": "Shared State",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    25,
+    26,
+    27,
+    28,
+    29
+   ],
+   "notes": [
+    "Note: build() in the agent snippet is never defined, and the streaming section shows LangGraph code. Notes list updates live from the agent."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-03-SharedState",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "shared-state-rendering",
+   "label": "Render agent state in your app",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/rendering-in-app",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    30,
+    31
+   ],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-04-SharedStateRendering",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "shared-state-streaming",
+   "label": "State Streaming",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/streaming",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    32,
+    33,
+    34
+   ],
+   "notes": [
+    "Issue: Antigravity can't stream state (the page says so itself), but the page still shows LangGraph backend code and a frontend reading state.document, which the only Antigravity snippet (set_steps) never writes. The panel stays on \"Waiting for a draft…\"."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-05-SharedStateStreaming",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "shared-state-readonly",
+   "label": "Agent Read-Only Context",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/agent-readonly",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    35,
+    36,
+    37
+   ],
+   "notes": [
+    "Issue: the agent never sees the useAgentContext value (asked which workspace, it answered C:/srv/agents/w1, not northstar). The Antigravity adapter needs experimental_app_context=True on the agent, which the page never mentions."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-06-SharedStateReadonly",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "hitl",
+   "label": "Human in the Loop",
+   "kind": "guide",
+   "group": "Human in the Loop",
+   "child": false,
+   "docPath": "human-in-the-loop",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    38,
+    39,
+    40,
+    41
+   ],
+   "notes": [
+    "Note: TimePickerCard.vue and agents._common are never shown, and the agent prompt names book_call while the Vue tool is schedule_meeting. Works with a simple picker added."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-18-HumanInTheLoop",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "use-interrupt",
+   "label": "useInterrupt",
+   "kind": "guide",
+   "group": "Human in the Loop",
+   "child": false,
+   "docPath": "human-in-the-loop/useInterrupt",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    42,
+    43
+   ],
+   "notes": [
+    "Issue: the page says Antigravity should use useHumanInTheLoop, but its frontend and backend sections have no code; only a useInterrupt panel and an App.vue importing a MeetingChat component that is never shown."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-19-UseInterrupt",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "headless-interrupts",
+   "label": "Headless Interrupts",
+   "kind": "guide",
+   "group": "Human in the Loop",
+   "child": false,
+   "docPath": "human-in-the-loop/headless",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    44
+   ],
+   "notes": [
+    "Issue: the only code on the page is App.vue importing HeadlessInterruptPanel.vue, which is never shown; the primitives section is text only, so there is nothing to run."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-20-HeadlessInterrupts",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "governed-actions",
+   "label": "Governed Actions",
+   "kind": "guide",
+   "group": "Human in the Loop",
+   "child": false,
+   "docPath": "human-in-the-loop/governed-actions",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    45
+   ],
+   "notes": [
+    "Note: the page shows no backend, so the prompt has to ask for approve_governed_action. The approval card works."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-21-GovernedActions",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "webmcp",
+   "label": "WebMCP",
+   "kind": "guide",
+   "group": "Browser Agents",
+   "child": false,
+   "docPath": "webmcp",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    46
+   ],
+   "notes": [
+    "Issue: OrderSearch.vue calls searchOrders(), which the page never defines, and the agent never replies when the tool is used."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-22-WebMcp",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "subagents",
+   "label": "Sub-Agents",
+   "kind": "guide",
+   "group": "Multi-Agent",
+   "child": false,
+   "docPath": "multi-agent/subagents",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    47
+   ],
+   "notes": [
+    "Issue: the delegation-log frontend section has no code, and subagents.py needs httpx (not in the install step) and agents._common, which is never shown."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-23-SubAgents",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
   }
  ]
 }

@@ -274,7 +274,7 @@ jobs:
           mkdir -p logs
           nohup bash start-all.sh > logs/start-all.log 2>&1 &
           # "localhost", not 127.0.0.1: the LangGraph JS server binds IPv6 ::1 only.
-          for hp in 8141/health 8140/ 5140/; do
+          for hp in 8141/health 8142/health 8143/ 8144/health 8145/health 8140/ 8146/ 8147/ 8148/ 8149/ 5140/; do  # HARNESS: 8142-8149 for the 2026-11-10 pages
             port=${hp%%/*}; path=/${hp#*/}
             ok=
             tries=120; case "$port" in 8???) tries=48 ;; esac   # a dead backend costs 4 min, not 10
