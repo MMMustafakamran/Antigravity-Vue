@@ -8,7 +8,14 @@ import { type Page } from 'playwright';
 
 import { waitForPageReady } from './page-ready';
 import { runVueFrontendToolsAction, runVueQuickstartAction } from './antigravity.actions';
-import { NEW_FINDINGS, runHeadlessUiAction, runHitlAction, runNewFindingAction } from './new-pages.actions';
+import {
+  NEW_FINDINGS,
+  runHeadlessThreadsAction,
+  runHeadlessUiAction,
+  runHitlAction,
+  runNewFindingAction,
+  runThreadsDrawerAction,
+} from './new-pages.actions';
 
 /** Keys are page ids from `config/pages.config.ts`. Doctor flags any orphans. */
 export const ACTION_MAP: Record<string, PageActionHandler> = {
@@ -16,6 +23,9 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'frontend-tools': runVueFrontendToolsAction,
   'headless-ui': runHeadlessUiAction,
   hitl: runHitlAction,
+  // Threads pages with the Intelligence key (2026-11-10).
+  'threads-drawer': runThreadsDrawerAction,
+  'headless-threads': runHeadlessThreadsAction,
   ...Object.fromEntries(Object.keys(NEW_FINDINGS).map((id) => [id, runNewFindingAction])),
 };
 

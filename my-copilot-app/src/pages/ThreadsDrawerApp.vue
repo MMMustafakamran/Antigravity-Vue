@@ -10,10 +10,9 @@ import "@copilotkit/vue/styles.css";
 </script>
 
 <template>
-  <!-- HARNESS: doc runtime-url="/api/copilotkit" 404s on Vite (FINDINGS.md); group V2 runtime on 8147 instead. -->
-  <!-- Everything else as published (placeholder license key, no Intelligence): what a reader without an Intelligence account gets. -->
+  <!-- HARNESS: doc runtime-url="/api/copilotkit" 404s on Vite (FINDINGS.md); the Threads runtime with CopilotKitIntelligence on 8154 (server.threads.ts). -->
   <CopilotKitProvider
-    runtime-url="http://localhost:8147/api/copilotkit"
+    runtime-url="http://localhost:8154/api/copilotkit"
     public-license-key="ck_pub_..."
   >
     <CopilotChatConfigurationProvider agent-id="support">

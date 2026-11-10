@@ -162,9 +162,9 @@ export const PAGES = definePages([
     route: '/threads-drawer',
     ideFile: 'my-copilot-app/src/pages/ThreadsDrawerApp.vue',
     startLine: 1,
-    endLine: 33,
+    endLine: 28,
     extraTabs: [{ filePath: 'my-copilot-app/src/components/threads-drawer/NewConversationButton.vue', startLine: 1, endLine: 13 }],
-    prompt: 'Say hello in one short sentence.',
+    prompt: 'Hi, remember that my favourite colour is teal.',
   },
   {
     id: 'headless-threads',
@@ -175,8 +175,8 @@ export const PAGES = definePages([
     ideFile: 'my-copilot-app/src/components/headless-threads/ThreadSidebar.vue',
     startLine: 1,
     endLine: 32,
-    extraTabs: [{ filePath: 'my-copilot-app/src/pages/HeadlessThreadsApp.vue', startLine: 1, endLine: 22 }],
-    prompt: 'Say hello in one short sentence.',
+    extraTabs: [{ filePath: 'my-copilot-app/src/pages/HeadlessThreadsApp.vue', startLine: 1, endLine: 20 }, { filePath: 'my-copilot-app/server.threads.ts', startLine: 1, endLine: 52 }],
+    prompt: 'Hi, start a new thread about tide pools.',
   },
   {
     id: 'tool-based',

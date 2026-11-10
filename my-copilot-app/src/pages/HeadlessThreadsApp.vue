@@ -8,9 +8,8 @@ import ThreadSidebar from "../components/headless-threads/ThreadSidebar.vue";
 </script>
 
 <template>
-  <!-- HARNESS: doc runtime-url="/api/copilotkit" 404s on Vite (FINDINGS.md); group V2 runtime on 8147 instead. -->
-  <!-- The runtime has no CopilotKitIntelligence (doc's server.ts needs CPK_INTELLIGENCE_API_KEY and an undefined verifyAppSession). -->
-  <CopilotKitProvider runtime-url="http://localhost:8147/api/copilotkit">
+  <!-- HARNESS: doc runtime-url="/api/copilotkit" 404s on Vite (FINDINGS.md); the Threads runtime with CopilotKitIntelligence on 8154 (server.threads.ts). -->
+  <CopilotKitProvider runtime-url="http://localhost:8154/api/copilotkit">
     <CopilotChatConfigurationProvider agent-id="my-agent">
       <div class="flex" style="height: 100dvh">
         <ThreadSidebar />

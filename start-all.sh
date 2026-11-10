@@ -33,6 +33,7 @@ cd my-copilot-app
 (PORT=8147 npx tsx server.v2.ts > ../logs/runtime-8147.log 2>&1) &  # HARNESS: V2 runtime
 (PORT=8148 npx tsx server.v3.ts > ../logs/runtime-8148.log 2>&1) &  # HARNESS: V3 runtime
 (PORT=8149 npx tsx server.v4.ts > ../logs/runtime-8149.log 2>&1) &  # HARNESS: V4 runtime
+(PORT=8154 npx tsx server.threads.ts > ../logs/runtime-8154.log 2>&1) &  # HARNESS: Threads runtime with CopilotKitIntelligence (needs CPK_INTELLIGENCE_API_KEY: env, or my-copilot-app/.env.intelligence)
 (PORT=8140 AGENT_URL="$AGENT_URL" npx tsx server.antigravity.ts > ../logs/runtime-8140.log 2>&1) &
 (npm run dev > ../logs/vite-5140.log 2>&1) &
 wait
