@@ -1,0 +1,9 @@
+{
+ "text": "So I had to fill both of those in, umm, I used the Excalidraw MCP server. Even then, the agent says the flowchart is drawn, but the MCP app frame in the chat shows up blank.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 12.446,
+ "file": "e0f627d727ba85ccb31b3d255aa11a84.mp3",
+ "clip": "ANTIGRAVITY-vue-17-McpApps",
+ "at": "notepad"
+}

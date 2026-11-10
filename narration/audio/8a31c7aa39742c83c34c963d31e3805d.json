@@ -1,0 +1,9 @@
+{
+ "text": "So basically Vite can't resolve the panel import, because the component doesn't exist anywhere on the page. And there's nothing to build it from, so you just get a blank page.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.82,
+ "file": "8a31c7aa39742c83c34c963d31e3805d.mp3",
+ "clip": "ANTIGRAVITY-vue-20-HeadlessInterrupts",
+ "at": "notepad"
+}

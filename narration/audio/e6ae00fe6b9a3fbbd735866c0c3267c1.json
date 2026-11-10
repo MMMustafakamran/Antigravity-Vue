@@ -1,0 +1,9 @@
+{
+ "text": "So the only code is a use interrupt panel, and an app file importing a component that doesn't exist on the page. I got the card only by copying the backend from the human in the loop page, and guessing meeting chat.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 13.839,
+ "file": "e6ae00fe6b9a3fbbd735866c0c3267c1.mp3",
+ "clip": "ANTIGRAVITY-vue-19-UseInterrupt",
+ "at": "notepad"
+}

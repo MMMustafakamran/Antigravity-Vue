@@ -1,0 +1,37 @@
+{
+ "clip": "ANTIGRAVITY-vue-16-StateRendering",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the state rendering page in the CopilotKit docs, for Vue with Google Antigravity, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "So this is my project, umm, and this is the exact code from the doc."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "So I asked it to research the history of the bicycle and write a draft. The agent answers fine in the chat, but the progress panel just stays on idle the whole time."
+  },
+  {
+   "at": "evidence",
+   "text": "So the only Antigravity backend code on the page is set steps, and it only writes steps."
+  },
+  {
+   "at": "evidence#2",
+   "text": "But the frontend reads status, draft and progress, umm, which nothing writes."
+  },
+  {
+   "at": "notepad",
+   "text": "So basically the panel and the backend don't match. The research progress component reads status, draft, completed and total, but the backend only ever sets steps. So, uh, the panel never moves off idle."
+  },
+  {
+   "at": "+",
+   "text": "So kindly look into it."
+  }
+ ]
+}

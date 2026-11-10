@@ -1,0 +1,41 @@
+{
+ "clip": "ANTIGRAVITY-vue-19-UseInterrupt",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the use interrupt page in the CopilotKit docs, for Vue with Google Antigravity, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "So this is my project, umm, and this is the exact code from the doc."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "I asked it to schedule a meeting about the roadmap. The approve card shows up, but uh, only because of code I had to bring in from other pages."
+  },
+  {
+   "at": "evidence",
+   "text": "So the page says Antigravity can't pause a run mid tool, so use human in the loop instead."
+  },
+  {
+   "at": "evidence#2",
+   "text": "But the frontend and backend sections for that are just text, umm, no code."
+  },
+  {
+   "at": "evidence#3",
+   "text": "And the app imports meeting chat, which is never shown."
+  },
+  {
+   "at": "notepad",
+   "text": "So the only code is a use interrupt panel, and an app file importing a component that doesn't exist on the page. I got the card only by copying the backend from the human in the loop page, and guessing meeting chat."
+  },
+  {
+   "at": "+",
+   "text": "So umm, this one needs fixing, please look into it."
+  }
+ ]
+}

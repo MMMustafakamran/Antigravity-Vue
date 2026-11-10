@@ -1,0 +1,9 @@
+{
+ "text": "So the tool can't work as written. Search orders doesn't exist, and the chat just never answers. The web MCP side also needs a Chrome flag, so there's nothing else to try from this page.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 12.446,
+ "file": "1805ea1a62a6566e2fa0fd02e77d851e.mp3",
+ "clip": "ANTIGRAVITY-vue-22-WebMcp",
+ "at": "notepad"
+}

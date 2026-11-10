@@ -1,0 +1,9 @@
+{
+ "text": "So basically, model, workspace, slug and the aimock helpers are never defined or imported. There's no agent and no app, and nothing registers sales. So, umm, you have to guess the backend. I pointed it at the quickstart agent just to run it.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 19.04,
+ "file": "f91a8432275006f6dbefc14015e24170.mp3",
+ "clip": "ANTIGRAVITY-vue-10-ProgrammaticControl",
+ "at": "notepad"
+}

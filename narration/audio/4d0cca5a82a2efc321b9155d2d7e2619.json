@@ -1,0 +1,9 @@
+{
+ "text": "And the install step doesn't include httpx, which the sub agents file imports.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 6.641,
+ "file": "4d0cca5a82a2efc321b9155d2d7e2619.mp3",
+ "clip": "ANTIGRAVITY-vue-23-SubAgents",
+ "at": "evidence#2"
+}

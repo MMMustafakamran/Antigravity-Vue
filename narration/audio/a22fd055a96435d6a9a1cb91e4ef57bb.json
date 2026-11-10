@@ -1,0 +1,9 @@
+{
+ "text": "So I asked it to research the history of the bicycle and write a draft. The agent answers fine in the chat, but the progress panel just stays on idle the whole time.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.031,
+ "file": "a22fd055a96435d6a9a1cb91e4ef57bb.mp3",
+ "clip": "ANTIGRAVITY-vue-16-StateRendering",
+ "at": "action"
+}

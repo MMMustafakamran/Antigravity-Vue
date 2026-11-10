@@ -175,6 +175,10 @@ export const NEW_FINDINGS: Record<string, NewFinding> = {
       { text: 'pip install ag-ui-antigravity google-antigravity', caption: 'install step misses httpx' },
       { text: 'from agents._common import MODEL, aimock_headers, api_key, gemini_base_url', caption: 'agents._common never published' },
     ],
+    // The supervisor delegates to three sub-agents before it answers: give it two minutes.
+    demo: async (page, config, _root, ctx) => {
+      if (!(await promptAndWaitFor(page, config, /scatter|Rayleigh|wavelength/i, 120000))) ctx.fail('The supervisor never replied');
+    },
     note: [
       'delegation log section says the frontend renders the delegations slot but has no code at all',
       'install is pip install ag-ui-antigravity google-antigravity, subagents.py imports httpx',
@@ -209,4 +213,14 @@ export const runHeadlessUiAction: PageActionHandler = async (page, config, _root
     .catch(() => false);
   if (!ok) ctx.fail('No assistant reply rendered in the headless chat');
   else await glideTo(page, reply, 3000);
+};
+
+/** Human in the Loop (✅): the time picker card appears in the chat; pick a slot. */
+export const runHitlAction: PageActionHandler = async (page, config, _root, ctx) => {
+  if (!(await promptAndWaitFor(page, config, /Pick a time/, 90000))) return ctx.fail('No time picker card showed up');
+  const slot = page.getByRole('button', { name: /Tomorrow/ }).first();
+  if (await slot.isVisible().catch(() => false)) {
+    await glideClick(page, slot);
+    await sleep(8000);
+  }
 };

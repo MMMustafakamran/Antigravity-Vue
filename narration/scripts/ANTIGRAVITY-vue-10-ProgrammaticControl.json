@@ -1,0 +1,33 @@
+{
+ "clip": "ANTIGRAVITY-vue-10-ProgrammaticControl",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the programmatic control page in the CopilotKit docs, for Vue with Google Antigravity, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "So this is my project, umm, and this is the exact code from the doc."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "So the page only gives a run agent button and a stop button, for an agent called sales. After clicking run, the run goes through, uh, but the button shows no output at all."
+  },
+  {
+   "at": "evidence",
+   "text": "And here's the problem. The only backend code on the page is this underscore common file, and it's just showcase helpers."
+  },
+  {
+   "at": "notepad",
+   "text": "So basically, model, workspace, slug and the aimock helpers are never defined or imported. There's no agent and no app, and nothing registers sales. So, umm, you have to guess the backend. I pointed it at the quickstart agent just to run it."
+  },
+  {
+   "at": "+",
+   "text": "So this needs a fix, kindly check it."
+  }
+ ]
+}

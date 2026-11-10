@@ -1,0 +1,9 @@
+{
+ "text": "So basically the panel and the backend don't match. The research progress component reads status, draft, completed and total, but the backend only ever sets steps. So, uh, the panel never moves off idle.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 14.861,
+ "file": "9a7ce627a7793a0dd0aa05362672d024.mp3",
+ "clip": "ANTIGRAVITY-vue-16-StateRendering",
+ "at": "notepad"
+}

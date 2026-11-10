@@ -1,0 +1,37 @@
+{
+ "clip": "ANTIGRAVITY-vue-20-HeadlessInterrupts",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the headless interrupts page in the CopilotKit docs, for Vue with Google Antigravity, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "So this is my project, umm, and this is the exact code from the doc."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "And the page is just blank, uh, there's nothing to interact with."
+  },
+  {
+   "at": "evidence",
+   "text": "So the only code on the page is this app file, importing a headless interrupt panel that is never shown."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And the primitives section is only text, umm, no code."
+  },
+  {
+   "at": "notepad",
+   "text": "So basically Vite can't resolve the panel import, because the component doesn't exist anywhere on the page. And there's nothing to build it from, so you just get a blank page."
+  },
+  {
+   "at": "+",
+   "text": "So yeah, this is the issue, kindly fix it."
+  }
+ ]
+}

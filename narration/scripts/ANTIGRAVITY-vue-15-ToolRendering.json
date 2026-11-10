@@ -1,0 +1,37 @@
+{
+ "clip": "ANTIGRAVITY-vue-15-ToolRendering",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the tool rendering page in the CopilotKit docs, for Vue with Google Antigravity, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "So this is my project, umm, and this is the exact code from the doc."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "I asked for the weather in Tokyo. The card shows up, but uh, it only has the raw result, and there's no city name on it."
+  },
+  {
+   "at": "evidence",
+   "text": "So the backend snippet returns build, with a system prompt and tools, and none of those are shown on the page."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And the card reads city here, umm, but the backend tool takes location."
+  },
+  {
+   "at": "notepad",
+   "text": "So as written, the backend is a name error. I had to pull build, the prompt and three tools from the showcase just to run it. And even then, the card reads city while the tool argument is location, so the card has no city name."
+  },
+  {
+   "at": "+",
+   "text": "That's the problem here, please have a look."
+  }
+ ]
+}

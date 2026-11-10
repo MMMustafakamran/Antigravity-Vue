@@ -1,0 +1,37 @@
+{
+ "clip": "ANTIGRAVITY-vue-06-SharedStateReadonly",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the agent read only context page in the CopilotKit docs, for Vue with Google Antigravity, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "So this is my project, umm, and this is the exact code from the doc."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "So the workspace is set to northstar, like the doc. I asked which workspace I'm in, and the agent answered some server path, uh, not northstar."
+  },
+  {
+   "at": "evidence",
+   "text": "So the page says these values reach the agent on every turn."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And again here, umm, the agent sees them on every turn."
+  },
+  {
+   "at": "notepad",
+   "text": "But the agent never sees the context. The Antigravity adapter only passes it when the agent is built with experimental app context set to true, and the page never mentions that. It also shows no backend code at all."
+  },
+  {
+   "at": "+",
+   "text": "Alright, that's the issue, kindly sort it out."
+  }
+ ]
+}

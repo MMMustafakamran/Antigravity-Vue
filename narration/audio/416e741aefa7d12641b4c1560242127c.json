@@ -1,0 +1,9 @@
+{
+ "text": "So as written, the backend is a name error. I had to pull build, the prompt and three tools from the showcase just to run it. And even then, the card reads city while the tool argument is location, so the card has no city name.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 14.025,
+ "file": "416e741aefa7d12641b4c1560242127c.mp3",
+ "clip": "ANTIGRAVITY-vue-15-ToolRendering",
+ "at": "notepad"
+}

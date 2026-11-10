@@ -1,0 +1,9 @@
+{
+ "text": "So the backend snippet returns build, with a system prompt and tools, and none of those are shown on the page.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 7.941,
+ "file": "9c09e6c5623ba0848f9f77bfd426d091.mp3",
+ "clip": "ANTIGRAVITY-vue-15-ToolRendering",
+ "at": "evidence"
+}

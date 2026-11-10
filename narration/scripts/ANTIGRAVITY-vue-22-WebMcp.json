@@ -1,0 +1,33 @@
+{
+ "clip": "ANTIGRAVITY-vue-22-WebMcp",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the web MCP page in the CopilotKit docs, for Vue with Google Antigravity, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "So this is my project, umm, and this is the exact code from the doc."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "So I asked the agent to use the search orders tool to find my open orders. And, uh, the chat never replies, it just sits there."
+  },
+  {
+   "at": "evidence",
+   "text": "So the order search component calls search orders here, umm, and the page never defines or imports it."
+  },
+  {
+   "at": "notepad",
+   "text": "So the tool can't work as written. Search orders doesn't exist, and the chat just never answers. The web MCP side also needs a Chrome flag, so there's nothing else to try from this page."
+  },
+  {
+   "at": "+",
+   "text": "That's what's breaking here, kindly have it fixed."
+  }
+ ]
+}

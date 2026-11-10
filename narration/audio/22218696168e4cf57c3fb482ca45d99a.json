@@ -1,0 +1,9 @@
+{
+ "text": "But the agent never sees the context. The Antigravity adapter only passes it when the agent is built with experimental app context set to true, and the page never mentions that. It also shows no backend code at all.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 14.35,
+ "file": "22218696168e4cf57c3fb482ca45d99a.mp3",
+ "clip": "ANTIGRAVITY-vue-06-SharedStateReadonly",
+ "at": "notepad"
+}

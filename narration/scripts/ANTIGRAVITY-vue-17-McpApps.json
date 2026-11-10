@@ -1,0 +1,37 @@
+{
+ "clip": "ANTIGRAVITY-vue-17-McpApps",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the MCP apps page in the CopilotKit docs, for Vue with Google Antigravity, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "So this is my project, umm, and this is the exact code from the doc."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "I asked it to draw a simple flowchart on Excalidraw. The agent says it drew it, but uh, the app frame in the chat stays blank."
+  },
+  {
+   "at": "evidence",
+   "text": "So the runtime snippet registers agent here, and agent is never defined anywhere."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And the MCP server URL is just a placeholder, mcp dot example dot com."
+  },
+  {
+   "at": "notepad",
+   "text": "So I had to fill both of those in, umm, I used the Excalidraw MCP server. Even then, the agent says the flowchart is drawn, but the MCP app frame in the chat shows up blank."
+  },
+  {
+   "at": "+",
+   "text": "That's it for this one, kindly look into this issue."
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+{
+ "text": "So the workspace is set to northstar, like the doc. I asked which workspace I'm in, and the agent answered some server path, uh, not northstar.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 11.099,
+ "file": "ca313fe0076586b168d43b43c923af6b.mp3",
+ "clip": "ANTIGRAVITY-vue-06-SharedStateReadonly",
+ "at": "action"
+}

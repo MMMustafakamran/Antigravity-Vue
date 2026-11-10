@@ -1,0 +1,9 @@
+{
+ "text": "So I asked for a short poem about the sea. The agent writes it in the chat, but the document panel stays on waiting for a draft, and uh, nothing streams.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.681,
+ "file": "bf63ed8ab12ce0d87a061786cd745dd9.mp3",
+ "clip": "ANTIGRAVITY-vue-05-SharedStateStreaming",
+ "at": "action"
+}
