@@ -23,7 +23,9 @@ done
 (cd backend && uv run --env-file .env uvicorn v2_main:app --port 8143 > ../logs/backend-8143.log 2>&1) &  # HARNESS: V2 tool/state rendering, mcp apps
 (cd backend && uv run --env-file .env uvicorn shared_state_main:app --port 8144 > ../logs/backend-8144.log 2>&1) &  # HARNESS: V3 shared-state pages
 # HARNESS: V4 hitl/interrupt/subagents; --with httpx because subagents.py imports httpx and the doc's install never adds it (FINDINGS.md #47)
-(cd backend && uv run --with httpx --env-file .env uvicorn v4_main:app --port 8145 > ../logs/backend-8145.log 2>&1) &
+# HARNESS: the showcase _common.py (copied, never published) defaults to /data/ws, not writable on CI runners
+mkdir -p backend/.antigravity-data/ws backend/.antigravity-data/sessions
+(cd backend && ANTIGRAVITY_WORKSPACE="$PWD/.antigravity-data/ws" ANTIGRAVITY_SAVE_DIR="$PWD/.antigravity-data/sessions" uv run --with httpx --env-file .env uvicorn v4_main:app --port 8145 > ../logs/backend-8145.log 2>&1) &
 
 # 2. runtime, 3. Vite
 cd my-copilot-app

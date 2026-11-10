@@ -64,8 +64,11 @@ export const SELECTORS: SelectorContract = {
   assistantMessage:
     '.copilotKitAssistantMessage, [data-message-role="assistant"], .copilotKitMessage:not(:first-child), [class*="assistant"]',
 
+  // HARNESS (2026-11-10): `button, body` added: Programmatic Control renders only Run/Stop buttons, and Headless
+  // Interrupts renders nothing (its panel is never published, FINDINGS.md #44). Those clips must still reach the
+  // page action (demo -> doc evidence -> Notepad); a chat page without an input still fails later in sendPrompt.
   chatReady:
-    'textarea, input[type="text"], input, [contenteditable="true"], .copilotKitChat, [class*="copilotKit"]',
+    'textarea, input[type="text"], input, [contenteditable="true"], .copilotKitChat, [class*="copilotKit"], button, body',
 
   docContentReady: 'h1, article, main, [class*="content"], pre',
 

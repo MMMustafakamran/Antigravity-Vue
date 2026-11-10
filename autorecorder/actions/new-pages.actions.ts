@@ -193,3 +193,20 @@ export const runNewFindingAction: PageActionHandler = async (page, config, root,
     await showFinding(page, config, f.evidence, f.note);
   }
 };
+
+/** Fully Headless UI (✅): the doc's own <input aria-label="Message"> + Send button, replies as <article data-role>. */
+export const runHeadlessUiAction: PageActionHandler = async (page, config, _root, ctx) => {
+  await sendPrompt(page, config.prompt, {
+    inputSelector: 'input[aria-label="Message"]',
+    submitSelector: 'button[type="submit"]',
+    messageSelector: 'article[data-role="assistant"]',
+    timeoutMs: 15000,
+  });
+  const reply = page.locator('article[data-role="assistant"]').last();
+  const ok = await page
+    .waitForFunction(() => [...document.querySelectorAll('article[data-role="assistant"]')].some((a) => (a.textContent ?? '').trim().length > 2), null, { timeout: 60000 })
+    .then(() => true)
+    .catch(() => false);
+  if (!ok) ctx.fail('No assistant reply rendered in the headless chat');
+  else await glideTo(page, reply, 3000);
+};

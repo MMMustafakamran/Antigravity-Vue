@@ -8,12 +8,13 @@ import { type Page } from 'playwright';
 
 import { waitForPageReady } from './page-ready';
 import { runVueFrontendToolsAction, runVueQuickstartAction } from './antigravity.actions';
-import { NEW_FINDINGS, runNewFindingAction } from './new-pages.actions';
+import { NEW_FINDINGS, runHeadlessUiAction, runNewFindingAction } from './new-pages.actions';
 
 /** Keys are page ids from `config/pages.config.ts`. Doctor flags any orphans. */
 export const ACTION_MAP: Record<string, PageActionHandler> = {
   quickstart: runVueQuickstartAction,
   'frontend-tools': runVueFrontendToolsAction,
+  'headless-ui': runHeadlessUiAction,
   ...Object.fromEntries(Object.keys(NEW_FINDINGS).map((id) => [id, runNewFindingAction])),
 };
 
