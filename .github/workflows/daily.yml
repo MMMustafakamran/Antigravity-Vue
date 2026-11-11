@@ -235,6 +235,8 @@ jobs:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       # Threads pages (Intelligence): server.threads.ts on 8154 reads it from the environment.
       CPK_INTELLIGENCE_API_KEY: ${{ secrets.CPK_INTELLIGENCE_API_KEY }}
+      # HARNESS: Gemini pool (tools/gemini_pool.py on :8155) falls back to OpenAI; the Gemini key is out of credit (402).
+      GEMINI_POOL_OPENAI_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Today's lockfiles from the plan job
@@ -309,7 +311,8 @@ jobs:
         run: |
           set -eu
           [ -n "${GEMINI_API_KEY:-}" ] || echo "::warning::secret GEMINI_API_KEY is not set; the doc agents will fail"
-          printf 'GEMINI_API_KEY=%s\n' "$GEMINI_API_KEY" > backend/.env
+          # HARNESS: the real keys live in the pool on :8155 (tools/gemini_pool.py); dummy key + base URL here.
+          printf 'GEMINI_API_KEY=pool\nGOOGLE_API_KEY=pool\nGOOGLE_GEMINI_BASE_URL=http://localhost:8155\n' > backend/.env
 
       - name: Make the doc's agent workspace path writable
         # The doc's main.py hardcodes workspaces=["/srv/agents/w1"]; /srv needs root on Linux.
