@@ -97,5 +97,6 @@ Stack: `@copilotkit/vue`/`runtime` 1.85.0, `vue` 3.5.44 (declared ^3.5.42), `vit
 - #41 Human in the Loop: links to useInterrupt/headless go to /vue/google-antigravity/vue/... (double vue)
 - #43 useInterrupt: runtime-url /api/copilotkit 404 on Vite
 - #45 Governed Actions: no backend shown: nothing makes the agent call approve_governed_action or emit an interrupt with metadata.action; executeSideEffect in handleApproval undefined
+- #50 Doubled `/vue/` in in-content links (2026-11-11 drift check), on top of #2/#29/#31/#41: Headless UI -> `.../vue/custom-look-and-feel/slots` and `/css`; Tool-based -> `.../vue/generative-ui/tool-rendering` and `/vue/human-in-the-loop`; Prebuilt Components -> `.../vue/prebuilt-components/chat`, `/chat-controls`, `/popup`, `/sidebar`; Threads Drawer / Headless Threads -> `.../vue/threads-lifecycle`, `/vue/headless-threads`, `/vue/AG-UI-Streams`; Programmatic control -> `.../vue/custom-look-and-feel/headless-ui`. All 404.
 
 ## Build-only (`vue-tsc` / `vite build`; `npm run dev` runs fine)

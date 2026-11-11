@@ -33,31 +33,37 @@
  },
  "sections": [
   {
-   "label": "Chat",
-   "cells": [
-    "Section"
-   ]
-  },
-  {
-   "label": "Threads",
-   "cells": [
-    "Section"
-   ]
-  },
-  {
-   "label": "App Control",
-   "cells": [
-    "Section"
-   ]
-  },
-  {
    "label": "Basics",
    "cells": [
     "Section"
    ]
   },
   {
-   "label": "Debugging",
+   "label": "Chat",
+   "cells": [
+    "Sub section"
+   ]
+  },
+  {
+   "label": "Custom Look and Feel",
+   "cells": [
+    "Sub section"
+   ]
+  },
+  {
+   "label": "Chat​",
+   "cells": [
+    "Sub section"
+   ]
+  },
+  {
+   "label": "Threads",
+   "cells": [
+    "Sub section"
+   ]
+  },
+  {
+   "label": "Basics​",
    "cells": [
     "Section"
    ]
@@ -69,27 +75,57 @@
    ]
   },
   {
-   "label": "Shared State",
+   "label": "Controlled",
+   "cells": [
+    "Sub section"
+   ]
+  },
+  {
+   "label": "Open-ended",
+   "cells": [
+    "Sub section"
+   ]
+  },
+  {
+   "label": "Interactivity",
    "cells": [
     "Section"
    ]
   },
   {
-   "label": "Human in the Loop",
+   "label": "Shared state",
+   "cells": [
+    "Sub section"
+   ]
+  },
+  {
+   "label": "Human-in-the-loop",
+   "cells": [
+    "Sub section"
+   ]
+  },
+  {
+   "label": "Interactivity​",
    "cells": [
     "Section"
    ]
   },
   {
-   "label": "Browser Agents",
+   "label": "Agent capabilities",
    "cells": [
     "Section"
    ]
   },
   {
-   "label": "Multi-Agent",
+   "label": "Backend",
    "cells": [
     "Section"
+   ]
+  },
+  {
+   "label": "Debugging",
+   "cells": [
+    "Sub section"
    ]
   }
  ],
@@ -127,66 +163,11 @@
    }
   },
   {
-   "id": "frontend-tools",
-   "label": "Frontend Tools",
-   "kind": "guide",
-   "group": "App Control",
-   "child": false,
-   "docPath": "frontend-tools",
-   "reachable": "sidebar",
-   "status": "✅",
-   "findings": [
-    4,
-    5,
-    9
-   ],
-   "notes": [
-    "Note: `runtime-url=\"/api/copilotkit\"` 404s on Vite; must be `http://localhost:8200/api/copilotkit`"
-   ],
-   "block": null,
-   "links": [
-    {
-     "text": null,
-     "clip": "ANTIGRAVITY-vue-02-FrontendTools",
-     "loom": "https://www.loom.com/share/d719fa0afe9e49edae1e215c41fea27d",
-     "narration": null
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   }
-  },
-  {
-   "id": "agentic-chat-ui",
-   "label": "Chat Components",
-   "kind": "guide",
-   "group": "Basics",
-   "child": false,
-   "docPath": "agentic-chat-ui",
-   "reachable": "none",
-   "status": "❌",
-   "findings": [
-    6
-   ],
-   "notes": [
-    "Note: the only code shown is React/Next.js (`page.tsx`, `<CopilotKit>`), no Vue template"
-   ],
-   "block": null,
-   "links": [],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   }
-  },
-  {
    "id": "prebuilt-components",
    "label": "Prebuilt Components",
    "kind": "guide",
    "group": "Chat",
-   "child": false,
+   "child": true,
    "docPath": "prebuilt-components",
    "reachable": "sidebar",
    "status": "✅",
@@ -217,8 +198,8 @@
    "id": "slots",
    "label": "Slots (Subcomponents)",
    "kind": "guide",
-   "group": "Chat",
-   "child": false,
+   "group": "Custom Look and Feel",
+   "child": true,
    "docPath": "custom-look-and-feel/slots",
    "reachable": "sidebar",
    "status": "✅",
@@ -246,8 +227,8 @@
    "id": "headless-ui",
    "label": "Fully Headless UI",
    "kind": "guide",
-   "group": "Chat",
-   "child": false,
+   "group": "Custom Look and Feel",
+   "child": true,
    "docPath": "custom-look-and-feel/headless-ui",
    "reachable": "sidebar",
    "status": "✅",
@@ -275,8 +256,8 @@
    "id": "programmatic-control",
    "label": "Programmatic Control",
    "kind": "guide",
-   "group": "Chat",
-   "child": false,
+   "group": "Chat​",
+   "child": true,
    "docPath": "programmatic-control",
    "reachable": "sidebar",
    "status": "❌",
@@ -303,40 +284,11 @@
    "added": "2026-11-10"
   },
   {
-   "id": "inspector",
-   "label": "Inspector",
-   "kind": "guide",
-   "group": "Debugging",
-   "child": false,
-   "docPath": "inspector",
-   "reachable": "sidebar",
-   "status": "✅",
-   "findings": [
-    15
-   ],
-   "notes": [],
-   "block": null,
-   "links": [
-    {
-     "text": null,
-     "clip": "ANTIGRAVITY-vue-11-Inspector",
-     "loom": null,
-     "narration": null
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "added": "2026-11-10"
-  },
-  {
    "id": "threads-drawer",
    "label": "Threads Drawer",
    "kind": "guide",
    "group": "Threads",
-   "child": false,
+   "child": true,
    "docPath": "prebuilt-components/copilot-threads-drawer",
    "reachable": "sidebar",
    "status": "N/A",
@@ -360,7 +312,7 @@
    "label": "Headless Threads",
    "kind": "guide",
    "group": "Threads",
-   "child": false,
+   "child": true,
    "docPath": "headless-threads",
    "reachable": "sidebar",
    "status": "N/A",
@@ -380,11 +332,43 @@
    "added": "2026-11-10"
   },
   {
+   "id": "frontend-tools",
+   "label": "Frontend Tools",
+   "kind": "guide",
+   "group": "Basics​",
+   "child": false,
+   "docPath": "frontend-tools",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    4,
+    5,
+    9
+   ],
+   "notes": [
+    "Note: `runtime-url=\"/api/copilotkit\"` 404s on Vite; must be `http://localhost:8200/api/copilotkit`"
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-02-FrontendTools",
+     "loom": "https://www.loom.com/share/d719fa0afe9e49edae1e215c41fea27d",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
    "id": "tool-based",
    "label": "Components as Tools",
    "kind": "guide",
-   "group": "Generative UI",
-   "child": false,
+   "group": "Controlled",
+   "child": true,
    "docPath": "generative-ui/tool-based",
    "reachable": "sidebar",
    "status": "✅",
@@ -412,8 +396,8 @@
    "id": "tool-rendering",
    "label": "Tool Rendering",
    "kind": "guide",
-   "group": "Generative UI",
-   "child": false,
+   "group": "Controlled",
+   "child": true,
    "docPath": "generative-ui/tool-rendering",
    "reachable": "sidebar",
    "status": "❌",
@@ -444,8 +428,8 @@
    "id": "state-rendering",
    "label": "State Rendering",
    "kind": "guide",
-   "group": "Generative UI",
-   "child": false,
+   "group": "Controlled",
+   "child": true,
    "docPath": "generative-ui/state-rendering",
    "reachable": "sidebar",
    "status": "❌",
@@ -476,8 +460,8 @@
    "id": "mcp-apps",
    "label": "MCP Apps",
    "kind": "guide",
-   "group": "Generative UI",
-   "child": false,
+   "group": "Open-ended",
+   "child": true,
    "docPath": "generative-ui/mcp-apps",
    "reachable": "sidebar",
    "status": "❌",
@@ -508,8 +492,8 @@
    "id": "shared-state",
    "label": "Shared State",
    "kind": "guide",
-   "group": "Shared State",
-   "child": false,
+   "group": "Shared state",
+   "child": true,
    "docPath": "shared-state",
    "reachable": "sidebar",
    "status": "✅",
@@ -543,8 +527,8 @@
    "id": "shared-state-rendering",
    "label": "Render agent state in your app",
    "kind": "guide",
-   "group": "Shared State",
-   "child": false,
+   "group": "Shared state",
+   "child": true,
    "docPath": "shared-state/rendering-in-app",
    "reachable": "sidebar",
    "status": "✅",
@@ -573,8 +557,8 @@
    "id": "shared-state-streaming",
    "label": "State Streaming",
    "kind": "guide",
-   "group": "Shared State",
-   "child": false,
+   "group": "Shared state",
+   "child": true,
    "docPath": "shared-state/streaming",
    "reachable": "sidebar",
    "status": "❌",
@@ -606,8 +590,8 @@
    "id": "shared-state-readonly",
    "label": "Agent Read-Only Context",
    "kind": "guide",
-   "group": "Shared State",
-   "child": false,
+   "group": "Shared state",
+   "child": true,
    "docPath": "shared-state/agent-readonly",
    "reachable": "sidebar",
    "status": "❌",
@@ -639,8 +623,8 @@
    "id": "hitl",
    "label": "Human in the Loop",
    "kind": "guide",
-   "group": "Human in the Loop",
-   "child": false,
+   "group": "Human-in-the-loop",
+   "child": true,
    "docPath": "human-in-the-loop",
    "reachable": "sidebar",
    "status": "✅",
@@ -673,8 +657,8 @@
    "id": "use-interrupt",
    "label": "useInterrupt",
    "kind": "guide",
-   "group": "Human in the Loop",
-   "child": false,
+   "group": "Human-in-the-loop",
+   "child": true,
    "docPath": "human-in-the-loop/useInterrupt",
    "reachable": "sidebar",
    "status": "❌",
@@ -705,8 +689,8 @@
    "id": "headless-interrupts",
    "label": "Headless Interrupts",
    "kind": "guide",
-   "group": "Human in the Loop",
-   "child": false,
+   "group": "Human-in-the-loop",
+   "child": true,
    "docPath": "human-in-the-loop/headless",
    "reachable": "sidebar",
    "status": "❌",
@@ -736,8 +720,8 @@
    "id": "governed-actions",
    "label": "Governed Actions",
    "kind": "guide",
-   "group": "Human in the Loop",
-   "child": false,
+   "group": "Human-in-the-loop",
+   "child": true,
    "docPath": "human-in-the-loop/governed-actions",
    "reachable": "sidebar",
    "status": "✅",
@@ -767,7 +751,7 @@
    "id": "webmcp",
    "label": "WebMCP",
    "kind": "guide",
-   "group": "Browser Agents",
+   "group": "Interactivity​",
    "child": false,
    "docPath": "webmcp",
    "reachable": "sidebar",
@@ -798,7 +782,7 @@
    "id": "subagents",
    "label": "Sub-Agents",
    "kind": "guide",
-   "group": "Multi-Agent",
+   "group": "Agent capabilities",
    "child": false,
    "docPath": "multi-agent/subagents",
    "reachable": "sidebar",
@@ -824,6 +808,58 @@
     "by": null
    },
    "added": "2026-11-10"
+  },
+  {
+   "id": "inspector",
+   "label": "Inspector",
+   "kind": "guide",
+   "group": "Debugging",
+   "child": true,
+   "docPath": "inspector",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    15
+   ],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-11-Inspector",
+     "loom": null,
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "added": "2026-11-10"
+  },
+  {
+   "id": "agentic-chat-ui",
+   "label": "Chat Components",
+   "kind": "guide",
+   "group": "Basics",
+   "child": false,
+   "docPath": "agentic-chat-ui",
+   "reachable": "none",
+   "status": "❌",
+   "findings": [
+    6
+   ],
+   "notes": [
+    "Note: the only code shown is React/Next.js (`page.tsx`, `<CopilotKit>`), no Vue template"
+   ],
+   "block": null,
+   "links": [],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
   }
  ]
 }

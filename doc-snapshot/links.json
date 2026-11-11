@@ -1,6 +1,6 @@
 {
  "root": "vue/google-antigravity",
- "savedAt": "2026-11-08",
+ "savedAt": "2026-11-11",
  "pages": {
   "/vue/google-antigravity/build-with-agents": [],
   "/vue/google-antigravity/custom-look-and-feel/slots": [],
@@ -42,6 +42,7 @@
   ],
   "/vue/google-antigravity/generative-ui/tool-rendering": [],
   "/vue/google-antigravity/programmatic-control": [
+   "/vue/google-antigravity/human-in-the-loop",
    "/vue/google-antigravity/vue/custom-look-and-feel/headless-ui"
   ],
   "/vue/google-antigravity/generative-ui/state-rendering": [],
@@ -68,9 +69,19 @@
    "/vue/google-antigravity/vue/human-in-the-loop/headless",
    "/vue/google-antigravity/vue/human-in-the-loop/useInterrupt"
   ],
-  "/vue/google-antigravity/human-in-the-loop/useInterrupt": [],
-  "/vue/google-antigravity/human-in-the-loop/headless": [],
-  "/vue/google-antigravity/human-in-the-loop/governed-actions": [],
+  "/vue/google-antigravity/human-in-the-loop/useInterrupt": [
+   "/vue/google-antigravity/human-in-the-loop",
+   "/vue/google-antigravity/human-in-the-loop/headless"
+  ],
+  "/vue/google-antigravity/human-in-the-loop/headless": [
+   "/vue/google-antigravity/human-in-the-loop",
+   "/vue/google-antigravity/human-in-the-loop/useInterrupt"
+  ],
+  "/vue/google-antigravity/human-in-the-loop/governed-actions": [
+   "/vue/google-antigravity/frontend-tools",
+   "/vue/google-antigravity/human-in-the-loop",
+   "/vue/google-antigravity/human-in-the-loop/useInterrupt"
+  ],
   "/vue/google-antigravity/webmcp": [
    "/vue/google-antigravity/frontend-tools"
   ],
@@ -183,6 +194,7 @@
   ],
   "/vue/google-antigravity/agentic-protocols/ag-ui": [],
   "/vue/google-antigravity/agentic-protocols/ag-ui-middleware": [
+   "/vue/google-antigravity/agentic-protocols/ag-ui",
    "/vue/google-antigravity/backend/ag-ui",
    "/vue/google-antigravity/backend/copilot-runtime"
   ],
@@ -201,7 +213,10 @@
    "/vue/google-antigravity/backend/runtime-endpoints",
    "/vue/google-antigravity/deploy/agentcore",
    "/vue/google-antigravity/intelligence/self-hosting",
-   "/vue/google-antigravity/model-selection"
+   "/vue/google-antigravity/model-selection",
+   "/vue/google-antigravity/quickstart",
+   "/vue/google-antigravity/troubleshooting/error-debugging",
+   "/vue/google-antigravity/troubleshooting/error-reference"
   ],
   "/vue/google-antigravity/troubleshooting/debug-mode": [
    "/vue/google-antigravity/troubleshooting/error-debugging"
