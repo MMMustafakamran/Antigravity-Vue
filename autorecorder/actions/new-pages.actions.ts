@@ -63,19 +63,6 @@ export const NEW_FINDINGS: Record<string, NewFinding> = {
       'so the weather card comes up with no city name in it',
     ].join('\n'),
   },
-  // FINDINGS.md #21
-  'state-rendering': {
-    evidence: [
-      { text: 'experimental_set_state({**experimental_get_state(), "steps": steps})', caption: 'the only Antigravity backend code writes steps' },
-      { text: 'status?: string;', caption: 'the frontend reads status / draft / progress' },
-    ],
-    note: [
-      'research progress panel reads status draft completed total from agent state',
-      'but the only antigravity backend code on the page is set_steps and that only writes steps',
-      'nothing on the page ever writes status or draft',
-      'agent answers fine in chat but the panel just stays on idle the whole time',
-    ].join('\n'),
-  },
   // FINDINGS.md #23
   'mcp-apps': {
     evidence: [
@@ -89,19 +76,20 @@ export const NEW_FINDINGS: Record<string, NewFinding> = {
       'agent says it drew the flowchart but the app frame in the chat stays blank',
     ].join('\n'),
   },
-  // FINDINGS.md #32
-  'shared-state-streaming': {
+  // FINDINGS.md #6 (doc-only clip: nothing on the page runs in Vue)
+  'agentic-chat-ui': {
     evidence: [
-      { text: 'Token-by-token state streaming is not available with Antigravity.', caption: 'the page says Antigravity cannot stream state' },
-      { text: 'experimental_set_state({**experimental_get_state(), "steps": steps})', caption: 'the only backend code writes steps' },
-      { text: '<p>{{ state.document ?? "Waiting for a draft…" }}</p>', caption: 'the frontend reads state.document' },
+      { text: '<CopilotKit runtimeUrl="/api/copilotkit" agent="agentic_chat">', caption: 'React/Next code on the Vue page' },
+      { text: 'from agents._common import build', caption: 'agents._common is never shown' },
     ],
     note: [
-      'page itself says token by token state streaming is not available with antigravity',
-      'still shows a frontend that reads state.document from the writer agent',
-      'only backend code is set_steps which writes steps, never document',
-      'agent writes the poem in chat but the panel stays on waiting for a draft, nothing streams',
+      'this is the vue chat components page but the only code is react next.js',
+      'page.tsx with CopilotKit runtimeUrl, nothing vue, no template no CopilotKitProvider',
+      'useConfigureSuggestions used with no import',
+      'and the python chat.py imports build from agents._common which is never shown',
+      'so theres nothing here a vue dev can actually build',
     ].join('\n'),
+    demo: async () => {},
   },
   // FINDINGS.md #35
   'shared-state-readonly': {

@@ -7,15 +7,15 @@
   },
   {
    "at": "ide",
-   "text": "So this is my project, with the doc's server dot ts and Vue app. The doc's server only registers a built in agent with OpenAI, umm, nothing connects to Antigravity. This other file, server dot antigravity dot ts, is my harness change, an HTTP agent to the Antigravity backend, so the demo runs."
+   "text": "So this is my project. Umm, the live page has no Vue steps at all, so the Vue app and the server wiring to the Antigravity backend are my own harness files."
   },
   {
    "at": "demo",
-   "text": "Moving on to the demo. So I asked the chat what this app can do, and it answered fine. This answer comes from the Antigravity backend, but only through my harness agent. With the doc's own server, umm, it would just be OpenAI, and Antigravity is never involved."
+   "text": "Moving on to the demo. So I asked the chat what this app can do, and it answered fine, but only because of my own wiring, uh, nothing from this page."
   },
   {
    "at": "evidence",
-   "text": "Back on the live doc. It's just the Antigravity landing page, and uh, the demo gives a four oh four."
+   "text": "Back on the live doc. It's just the Antigravity landing page, and uh, the demo on it gives a four oh four."
   },
   {
    "at": "evidence#2",
@@ -23,11 +23,11 @@
   },
   {
    "at": "notepad",
-   "text": "So noting it down. The live page shows the landing page with Next JS code. The Vue steps only exist in the markdown export, and they use the OpenAI built in agent, umm, never Antigravity. What's missing is an HTTP agent pointed at the Antigravity server. With that one change, ahh, the Vue app does work with Antigravity."
+   "text": "So noting it down. The Vue quickstart page shows the Antigravity landing page, with only a Next JS route file. There's no create Vue step, no CopilotKit Vue package, no server, umm, and the embedded demo is a four oh four."
   },
   {
    "at": "+",
-   "text": "So following this page, you get a chat, uh, but not Antigravity. So yeah, kindly check this and fix it."
+   "text": "So a Vue developer has nothing to follow here. So yeah, kindly check this and fix it."
   }
  ]
 }

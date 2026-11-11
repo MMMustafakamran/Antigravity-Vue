@@ -16,7 +16,7 @@ Docs QA harness for CopilotKit + Google Antigravity, Vue: https://docs.copilotki
 
 - Ports (from `start-all.sh`): Vite **5140**, runtime **8140** (`server.antigravity.ts`), own quickstart agent **8141** (`backend/main.py`, `uv`, health at `/health`). Never 3000 / 8000; the doc's 5173 / 8200 are overridden.
 - The repo runs on its own (no Antigravity-react needed). `backend/` is the doc's quickstart agent, copied verbatim via Antigravity-react; only the port is a harness change.
-- The runtime is `server.antigravity.ts` (HttpAgent → 8141) because the doc's BuiltInAgent `server.ts` never reaches Antigravity (FINDINGS #1). HARNESS evidence; the finding stands.
+- The runtime is `server.antigravity.ts` (HttpAgent → 8141) because the rendered quickstart has no Vue steps at all (FINDINGS #9). HARNESS evidence; the finding stands.
 - The doc's `.env` is never loaded by the backend (Antigravity-react FINDINGS #1), so `start-all.sh` uses `uv run --env-file .env`.
 - Keys: `backend/.env` (`GEMINI_API_KEY`). Names in [.env.example](.env.example). Never print or commit them.
 - **The 2026-11-04 clips must be re-recorded**: the old `actions/antigravity.actions.ts` drew red outlines and captions on the page (REVIEW.md: `rerecord`). Use the drag-select + Notepad evidence step (`actions/doc-evidence.ts`).

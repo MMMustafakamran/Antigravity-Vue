@@ -33,14 +33,10 @@ export const FINDING_EVIDENCE: Record<string, DocEvidence[]> = {
 
 /** Finding clips end with the finding typed into Notepad (REPOS.md Rule 6). */
 const QUICKSTART_FINDING = [
-  'vue quickstart - findings #1 #9',
-  '',
-  'the live page shows the antigravity landing page with next.js code',
-  'not the vue steps, and the embedded demo is a 404',
-  'the vue steps (only in the .md version) use an openai BuiltInAgent',
-  'and never connect to antigravity at all',
-  'this chat only works because the harness swapped in an HttpAgent',
-  'pointing at the antigravity backend (server.antigravity.ts)',
+  'the vue quickstart page in the browser is just the antigravity landing page',
+  'only code is a next.js route.ts, no npm create vue no copilotkit vue no server',
+  'and the embedded demo on it is a 404',
+  'so theres no vue quickstart to follow, i wired the vue app to the antigravity backend myself',
 ].join('\n');
 
 export const runVueQuickstartAction: PageActionHandler = async (page, config, root, ctx) => {

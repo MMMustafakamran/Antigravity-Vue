@@ -1,12 +1,16 @@
 /**
  * Pages of https://docs.copilotkit.ai/vue/google-antigravity under test. The Vue app is a single
  * Vite app with no router, so both clips drive http://localhost:5140/. Its runtime is the harness's
- * server.antigravity.ts (HttpAgent -> own Antigravity backend on 8141), because the doc's BuiltInAgent server.ts
- * never reaches Antigravity (FINDINGS.md #1) and the OpenAI key it needs has no credit.
+ * server.antigravity.ts (HttpAgent -> own Antigravity backend on 8141). HARNESS: the rendered quickstart has no Vue
+ * steps at all (FINDINGS.md #9), so the Vue wiring is the harness's own.
  */
 import { definePages } from '../core/types';
 
-export const SKIP_RECORDING: Record<string, string> = {};
+export const SKIP_RECORDING: Record<string, string> = {
+  // Owner rule (2026-11-11): a page with a "Not available for <framework>" banner is N/A, no clip.
+  'state-rendering': 'N/A: the page says "Not available for Google Antigravity yet"',
+  'shared-state-streaming': 'N/A: the page says "Not available for Google Antigravity yet"',
+};
 
 export const PAGES = definePages([
   {
@@ -258,4 +262,7 @@ export const PAGES = definePages([
     ideFile: 'backend/agents/subagents.py', startLine: 1, endLine: 112,
     extraTabs: [{ filePath: 'my-copilot-app/src/pages/SubagentsApp.vue', startLine: 1, endLine: 11 }],
     prompt: 'Write a short paragraph about why the sky is blue.', waitAfterPromptMs: 10000 },
+  // Doc-only finding (FINDINGS.md #6): the Vue page has only React/Next code, nothing to build.
+  { id: 'agentic-chat-ui', name: 'Chat Components (Vue)', videoName: 'AgenticChatUi', docPath: 'agentic-chat-ui', route: '',
+    ideFile: 'my-copilot-app/VERSIONS.md', startLine: 1, endLine: 1, prompt: '', docOnly: true, docOnlyAction: true },
 ]);

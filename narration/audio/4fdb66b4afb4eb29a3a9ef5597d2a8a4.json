@@ -1,0 +1,9 @@
+{
+ "text": "So basically this is the Vue page, but the code is React and Next JS. No Vue template, no CopilotKit provider, and uh, the suggestions hook isn't even imported. So there's nothing a Vue developer can actually build from it.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 15.836,
+ "file": "4fdb66b4afb4eb29a3a9ef5597d2a8a4.mp3",
+ "clip": "ANTIGRAVITY-vue-24-AgenticChatUi",
+ "at": "notepad"
+}

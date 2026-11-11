@@ -140,12 +140,10 @@
    "reachable": "sidebar",
    "status": "❌",
    "findings": [
-    1,
-    2,
-    3
+    9
    ],
    "notes": [
-    "Note: live page shows the landing page with Next.js code; the Vue steps use OpenAI BuiltInAgent, never Antigravity"
+    "Issue: the Vue quickstart URL shows the Antigravity landing page with Next.js route code; no Vue steps, and the embedded demo is a 404."
    ],
    "block": null,
    "links": [
@@ -342,8 +340,7 @@
    "status": "✅",
    "findings": [
     4,
-    5,
-    9
+    5
    ],
    "notes": [
     "Note: `runtime-url=\"/api/copilotkit\"` 404s on Vite; must be `http://localhost:8200/api/copilotkit`"
@@ -432,23 +429,13 @@
    "child": true,
    "docPath": "generative-ui/state-rendering",
    "reachable": "sidebar",
-   "status": "❌",
-   "findings": [
-    21,
-    22
-   ],
+   "status": "N/A",
+   "findings": [],
    "notes": [
-    "Issue: frontend reads status/draft/progress but the Antigravity backend snippet only writes steps, and the full agent shown is LangGraph code. Panel stays Idle."
+    "Note: Not available for Google Antigravity (the page says \"Not available for Google Antigravity yet. This feature (shared-state-streaming) hasn't been tagged in any Google Antigravity cell yet\")."
    ],
    "block": null,
-   "links": [
-    {
-     "text": null,
-     "clip": "ANTIGRAVITY-vue-16-StateRendering",
-     "loom": null,
-     "narration": null
-    }
-   ],
+   "links": [],
    "review": {
     "verdict": null,
     "approvedAt": null,
@@ -501,11 +488,10 @@
     25,
     26,
     27,
-    28,
     29
    ],
    "notes": [
-    "Note: build() in the agent snippet is never defined, and the streaming section shows LangGraph code. Notes list updates live from the agent."
+    "Note: build() in the agent snippet is never defined. Notes list updates live from the agent."
    ],
    "block": null,
    "links": [
@@ -561,24 +547,13 @@
    "child": true,
    "docPath": "shared-state/streaming",
    "reachable": "sidebar",
-   "status": "❌",
-   "findings": [
-    32,
-    33,
-    34
-   ],
+   "status": "N/A",
+   "findings": [],
    "notes": [
-    "Issue: Antigravity can't stream state (the page says so itself), but the page still shows LangGraph backend code and a frontend reading state.document, which the only Antigravity snippet (set_steps) never writes. The panel stays on \"Waiting for a draft…\"."
+    "Note: Not available for Google Antigravity (the page says \"Not available for Google Antigravity yet. This feature (shared-state-streaming) hasn't been tagged in any Google Antigravity cell yet\")."
    ],
    "block": null,
-   "links": [
-    {
-     "text": null,
-     "clip": "ANTIGRAVITY-vue-05-SharedStateStreaming",
-     "loom": null,
-     "narration": null
-    }
-   ],
+   "links": [],
    "review": {
     "verdict": null,
     "approvedAt": null,
@@ -845,21 +820,29 @@
    "group": "Basics",
    "child": false,
    "docPath": "agentic-chat-ui",
-   "reachable": "none",
+   "reachable": "in-content",
    "status": "❌",
    "findings": [
     6
    ],
    "notes": [
-    "Note: the only code shown is React/Next.js (`page.tsx`, `<CopilotKit>`), no Vue template"
+    "Issue: the Vue page only has React/Next.js code (page.tsx, <CopilotKit>), no Vue template, and the backend imports the unpublished agents._common."
    ],
    "block": null,
-   "links": [],
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-24-AgenticChatUi",
+     "loom": null,
+     "narration": "narration/scripts/ANTIGRAVITY-vue-24-AgenticChatUi.json"
+    }
+   ],
    "review": {
     "verdict": null,
     "approvedAt": null,
     "by": null
-   }
+   },
+   "linkedFrom": "quickstart"
   }
  ]
 }
