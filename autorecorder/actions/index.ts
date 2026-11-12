@@ -13,6 +13,7 @@ import {
   runHeadlessThreadsAction,
   runHeadlessUiAction,
   runHitlAction,
+  runMcpAppsAction,
   runNewFindingAction,
   runThreadsDrawerAction,
 } from './new-pages.actions';
@@ -24,6 +25,7 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'headless-ui': runHeadlessUiAction,
   hitl: runHitlAction,
   // Threads pages with the Intelligence key (2026-11-10).
+  'mcp-apps': runMcpAppsAction,
   'threads-drawer': runThreadsDrawerAction,
   'headless-threads': runHeadlessThreadsAction,
   ...Object.fromEntries(Object.keys(NEW_FINDINGS).map((id) => [id, runNewFindingAction])),
