@@ -290,9 +290,7 @@
    "docPath": "prebuilt-components/copilot-threads-drawer",
    "reachable": "sidebar",
    "status": "N/A",
-   "findings": [
-    16
-   ],
+   "findings": [],
    "notes": [
     "Note: needs the CopilotKit Intelligence platform (threads); without it the drawer stays on \"Loading threads...\"."
    ],
@@ -451,13 +449,13 @@
    "child": true,
    "docPath": "generative-ui/mcp-apps",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "✅",
    "findings": [
     23,
     24
    ],
    "notes": [
-    "Issue: runtime snippet uses an undefined agent and a placeholder MCP url; with those filled in the Excalidraw app frame shows up blank in the chat."
+    "Note: now working: the Excalidraw app renders in the chat. The runtime snippet still leaves `agent` undefined and the MCP url is a placeholder (filled in)."
    ],
    "block": null,
    "links": [

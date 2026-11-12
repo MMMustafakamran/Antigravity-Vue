@@ -235,7 +235,8 @@ jobs:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       # Threads pages (Intelligence): server.threads.ts on 8154 reads it from the environment.
       CPK_INTELLIGENCE_API_KEY: ${{ secrets.CPK_INTELLIGENCE_API_KEY }}
-      # HARNESS: Gemini pool (tools/gemini_pool.py on :8155) falls back to OpenAI; the Gemini key is out of credit (402).
+      # HARNESS: Gemini pool (tools/gemini_pool.py on :8155) in front of google-genai: Gemini key(s) first, OpenAI only as the last-resort fallback.
+      GEMINI_POOL_KEYS: ${{ secrets.GEMINI_POOL_KEYS || secrets.GEMINI_API_KEY }}
       GEMINI_POOL_OPENAI_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
       - uses: actions/checkout@v4

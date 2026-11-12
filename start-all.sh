@@ -11,7 +11,7 @@ cd "$(dirname "$0")"
 mkdir -p logs
 : "${AGENT_URL:=http://localhost:8141}"
 
-# HARNESS: Gemini pool on 8155 (copied from the google-adk repo). The repo's Gemini key is out of credit (402);
+# HARNESS: Gemini pool on 8155 (copied from the google-adk repo). Keys: GEMINI_POOL_KEYS / GEMINI_POOL_KEYFILES, OpenAI as last-resort fallback;
 # CI writes GOOGLE_GEMINI_BASE_URL=http://localhost:8155 into backend/.env so google-genai goes through it.
 # --with httpx: the pool needs httpx, the doc's backend install doesn't have it.
 (cd backend && PORT=8155 uv run --with httpx python ../tools/gemini_pool.py > ../logs/gemini-pool-8155.log 2>&1) &

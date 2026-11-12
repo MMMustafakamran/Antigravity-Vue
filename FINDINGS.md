@@ -22,10 +22,6 @@ Stack: `@copilotkit/vue`/`runtime` 1.85.0, `vue` 3.5.44 (declared ^3.5.42), `vit
 **#19 backend snippet uses build(), SYSTEM_PROMPT and 3 tools that are never shown; needed showcase code to run. Card also reads city but the backend tool arg is location.**
 - Doc: TOOLS = [get_weather, search_flights, get_stock_price, roll_d20] / def tool_rendering_agent(): return build(system_instructions=SYSTEM_PROMPT, tools=TOOLS) / Result: build, SYSTEM_PROMPT and three of the four tools are never shown or imported (NameError as published). With showcase code filled in, the card renders but the city heading is empty: the frontend reads parameters.city while the backend get_weather takes location.
 
-### [MCP Apps](https://docs.copilotkit.ai/vue/google-antigravity/generative-ui/mcp-apps)
-**#23 runtime snippet uses an undefined agent and a placeholder MCP url; with those filled in the Excalidraw app frame shows up blank in the chat.** (re-check 2026-11-11: blank frame may be the headless browser; if Excalidraw renders this drops to a minor note)
-- Doc: agents: { default: agent }, url: "https://mcp.example.com/mcp" / Result: `agent` is undefined and the server URL is a placeholder; with harness fills the agent says the flowchart is drawn but the in-chat MCP App frame stays blank (headed Chromium, 3 runs). NEEDS a visual recheck: React harness saw the Excalidraw iframe render (React FINDINGS #43).
-
 ### [Agent Read-Only Context](https://docs.copilotkit.ai/vue/google-antigravity/shared-state/agent-readonly)
 **#35 the agent never sees the useAgentContext value (asked which workspace, it answered C:/srv/agents/w1, not northstar). The Antigravity adapter needs experimental_app_context=True on the agent, which the page never mentions.**
 - Doc: "Surfaced to the agent through the backend's CopilotKit middleware on every turn." (useAgentContext({ description: "Active workspace", value: workspaceId }) with workspaceId = "northstar") / Result: asked "Which workspace am I in right now?" the agent replied "You are currently in the workspace: C:/srv/agents/w1"; the context never reaches it. ag_ui_antigravity only exposes useAgentContext values when the agent is built with experimental_app_context=True (get_app_context tool, see agent.py docstring), which the page never mentions.
@@ -49,18 +45,18 @@ Stack: `@copilotkit/vue`/`runtime` 1.85.0, `vue` 3.5.44 (declared ^3.5.42), `vit
 ## Minor notes
 - #5 Frontend Tools: `zod` is imported but no Vue install step adds it. It resolves only transitively (3.25.76).
 - #4 Frontend Tools: `runtime-url="/api/copilotkit"` is relative; a Vite app has no `/api` route, so `/api/copilotkit/info` 404s and the chat sends nothing until it points at the runtime server.
-- #8 When the model call fails (seen: OpenAI `insufficient_quota`), the Vue chat shows nothing: no error, no message. (re-check pending: needs a failing-key probe)
+- #8 When the model call fails, the Vue chat shows nothing: no error, no message (re-checked 2026-11-12 with an invalid Gemini key: the backend logs `Antigravity run failed`, the chat stays blank under the user message).
 - #10 Prebuilt Components: agent-id="my-agent" is never registered by the Vue quickstart runtime (it registers default); reader must add it
 - #11 Prebuilt Components: runtime-url="/api/copilotkit" is relative, 404 on a Vite app (same as other Vue pages)
 - #12 Slots (Subcomponents): disclaimer slot snippet uses CopilotChatInput without importing it; other snippets are template fragments (CustomMessageView, CustomToolbarAction undefined)
 - #13 Fully Headless UI: same unregistered my-agent id / relative runtime-url as Prebuilt Components
 - #15 Inspector: only code block for disabling Inspector is React (<CopilotKit enableInspector>), Vue gets one prose line
-- #16 Threads Drawer: page says 'Without a valid Threads license, the drawer shows a locked view' but with the placeholder key it shows endless 'Loading threads...' instead (re-check pending: last probe hit Gemini 402)
 - #17 Headless Threads: sidebar uses class="flex" (Tailwind) with no Tailwind setup on the page
 - #48 Threads Drawer: page shows no runtime code for Intelligence and agent-id="support" is never registered; public-license-key="ck_pub_..." is a placeholder (not needed once the runtime has CPK_INTELLIGENCE_API_KEY)
 - #49 Headless Threads: server.ts uses agent and verifyAppSession without defining them and registers only default, while App.vue uses agent-id="my-agent"
 - #18 Components as Tools: imports zod but no install step adds it (present only transitively)
 - #20 Tool Rendering: WeatherToolCard reads parameters.city, backend arg is location: card shows result JSON with no city name
+- #23 MCP Apps: runtime `mcpApps` server url is the placeholder `https://mcp.example.com/mcp`; with a real MCP server (Excalidraw) the app renders in the chat (re-checked 2026-11-12)
 - #24 MCP Apps: server snippet: `agent` never defined
 - #25 Shared State: backend snippet calls build(...) which the page never defines or imports (same as React #8)
 - #26 Shared State: set_notes snippet uses experimental_get_state/experimental_set_state without imports
@@ -76,6 +72,6 @@ Stack: `@copilotkit/vue`/`runtime` 1.85.0, `vue` 3.5.44 (declared ^3.5.42), `vit
 - #41 Human in the Loop: links to useInterrupt/headless go to /vue/google-antigravity/vue/... (double vue)
 - #43 useInterrupt: runtime-url /api/copilotkit 404 on Vite
 - #45 Governed Actions: no backend shown: nothing makes the agent call approve_governed_action or emit an interrupt with metadata.action; executeSideEffect in handleApproval undefined
-- #50 Doubled `/vue/` in in-content links (2026-11-11 drift check), on top of #29/#31/#41: Headless UI -> `.../vue/custom-look-and-feel/slots` and `/css`; Tool-based -> `.../vue/generative-ui/tool-rendering` and `/vue/human-in-the-loop`; Prebuilt Components -> `.../vue/prebuilt-components/chat`, `/chat-controls`, `/popup`, `/sidebar`; Threads Drawer / Headless Threads -> `.../vue/threads-lifecycle`, `/vue/headless-threads`, `/vue/AG-UI-Streams`, and Headless Threads also `/vue/prebuilt-components/copilot-threads-drawer`; Programmatic control -> `.../vue/custom-look-and-feel/headless-ui`. All 404.
+- #50 Doubled `/vue/` in in-content links (2026-11-11 drift check), on top of #29/#31/#41: Headless UI -> `.../vue/custom-look-and-feel/slots` and `/css`; Tool-based -> `.../vue/generative-ui/tool-rendering` and `/vue/human-in-the-loop`; Prebuilt Components -> `.../vue/prebuilt-components/chat`, `/chat-controls`, `/popup`, `/sidebar`; Threads Drawer / Headless Threads -> `.../vue/threads-lifecycle`, `/vue/headless-threads`, `/vue/AG-UI-Streams`, and Headless Threads also `/vue/prebuilt-components/copilot-threads-drawer`; Programmatic control -> `.../vue/custom-look-and-feel/headless-ui`; the Vue quickstart (`/vue/google-antigravity`) -> `.../vue/AG-UI-Streams`, `/vue/prebuilt-components/copilot-threads-drawer`. All 404 (still the same on 2026-11-12). Inspector also links `/vue/google-antigravity/react-native` (404).
 
 ## Build-only (`vue-tsc` / `vite build`; `npm run dev` runs fine)

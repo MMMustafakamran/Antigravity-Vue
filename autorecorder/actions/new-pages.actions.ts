@@ -63,19 +63,6 @@ export const NEW_FINDINGS: Record<string, NewFinding> = {
       'so the weather card comes up with no city name in it',
     ].join('\n'),
   },
-  // FINDINGS.md #23
-  'mcp-apps': {
-    evidence: [
-      { text: 'agents: { default: agent },', caption: 'agent is never defined' },
-      { text: 'https://mcp.example.com/mcp', caption: 'placeholder MCP server url' },
-    ],
-    note: [
-      'runtime snippet registers agents default agent but agent is never defined anywhere',
-      'and the mcp server url is just mcp.example.com/mcp, a placeholder',
-      'filled both in, used the excalidraw mcp server',
-      'agent says it drew the flowchart but the app frame in the chat stays blank',
-    ].join('\n'),
-  },
   // FINDINGS.md #6 (doc-only clip: nothing on the page runs in Vue)
   'agentic-chat-ui': {
     evidence: [
