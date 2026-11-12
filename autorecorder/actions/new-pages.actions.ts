@@ -80,7 +80,7 @@ export const NEW_FINDINGS: Record<string, NewFinding> = {
   'agentic-chat-ui': {
     evidence: [
       { text: '<CopilotKit runtimeUrl="/api/copilotkit" agent="agentic_chat">', caption: 'React/Next code on the Vue page' },
-      { text: 'from agents._common import build', caption: 'agents._common is never shown' },
+      { text: 'export function useAgenticChatSuggestions() {', caption: 'useConfigureSuggestions used with no import (agents._common in chat.py is behind the Code tab)' },
     ],
     note: [
       'this is the vue chat components page but the only code is react next.js',

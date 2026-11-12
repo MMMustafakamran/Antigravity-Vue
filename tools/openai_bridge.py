@@ -53,6 +53,35 @@ def _schema(s):
     return out
 
 
+def _pair_tool_calls(msgs: list, notes: list) -> list:
+    """HARNESS (Antigravity-Vue): the Antigravity runtime can send a functionCall turn whose
+    functionResponse carries another id, or none at all. OpenAI needs every tool_call answered by a
+    tool message right after it, so re-pair them (unmatched results take the open ids in order;
+    still-open ids get a null result). Bridge plumbing only, the doc's agent code is unchanged."""
+    out, i = [], 0
+    while i < len(msgs):
+        m = msgs[i]; i += 1
+        if m.get("role") == "tool":
+            notes.append("dropped orphan tool result")
+            continue
+        out.append(m)
+        if m.get("role") != "assistant" or not m.get("tool_calls"):
+            continue
+        ids = [tc["id"] for tc in m["tool_calls"]]
+        results = []
+        while i < len(msgs) and msgs[i].get("role") == "tool":
+            results.append(msgs[i]); i += 1
+        by_id = {r["tool_call_id"]: r for r in results if r["tool_call_id"] in ids}
+        spare = [r for r in results if r["tool_call_id"] not in ids]
+        for cid in ids:
+            r = by_id.get(cid) or (dict(spare.pop(0), tool_call_id=cid) if spare else None)
+            if r is None:
+                notes.append("filled missing tool result")
+                r = {"role": "tool", "tool_call_id": cid, "content": "null"}
+            out.append(r)
+    return out
+
+
 def to_openai(g: dict) -> tuple[dict, list[str]]:
     notes, msgs = [], []
     sys_parts = (g.get("systemInstruction") or g.get("system_instruction") or {}).get("parts", [])
@@ -105,6 +134,7 @@ def to_openai(g: dict) -> tuple[dict, list[str]]:
                 msgs.append({"role": "user", "content": ([{"type": "text", "text": "\n".join(texts)}] if texts else []) + images})
             elif texts:
                 msgs.append({"role": "user", "content": "\n".join(texts)})
+    msgs = _pair_tool_calls(msgs, notes)
     tools = []
     for t in g.get("tools", []) or []:
         for fd in t.get("functionDeclarations") or t.get("function_declarations") or []:

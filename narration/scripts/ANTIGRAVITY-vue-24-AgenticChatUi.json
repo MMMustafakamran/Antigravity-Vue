@@ -11,11 +11,11 @@
   },
   {
    "at": "evidence#2",
-   "text": "And the Python agent imports build from agents underscore common, which is never shown."
+   "text": "And this suggestions hook is React too, umm, and it's never even imported."
   },
   {
    "at": "notepad",
-   "text": "So basically this is the Vue page, but the code is React and Next JS. No Vue template, no CopilotKit provider, and uh, the suggestions hook isn't even imported. So there's nothing a Vue developer can actually build from it."
+   "text": "So basically this is the Vue page, but the code is React and Next JS. No Vue template, no CopilotKit provider, and uh, the Python agent imports build from agents underscore common, which is never shown. So there's nothing a Vue developer can build from it."
   },
   {
    "at": "+",
