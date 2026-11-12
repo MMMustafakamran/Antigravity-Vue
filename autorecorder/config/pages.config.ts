@@ -10,6 +10,8 @@ export const SKIP_RECORDING: Record<string, string> = {
   // Owner rule (2026-11-11): a page with a "Not available for <framework>" banner is N/A, no clip.
   'state-rendering': 'N/A: the page says "Not available for Google Antigravity yet"',
   'shared-state-streaming': 'N/A: the page says "Not available for Google Antigravity yet"',
+  'use-interrupt': 'N/A: the page shows a "Not supported" banner for Google Antigravity',
+  'headless-interrupts': 'N/A: the page shows a "Not supported" banner for Google Antigravity',
 };
 
 export const PAGES = definePages([
