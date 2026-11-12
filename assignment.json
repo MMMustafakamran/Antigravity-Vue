@@ -634,16 +634,23 @@
    "child": true,
    "docPath": "human-in-the-loop/useInterrupt",
    "reachable": "sidebar",
-   "status": "N/A",
+   "status": "❌",
    "findings": [
     42,
     43
    ],
    "notes": [
-    "Note: Not supported for Google Antigravity (the page shows a \"Not supported\" banner)."
+    "Issue: the page says Antigravity should use useHumanInTheLoop, but its frontend and backend sections have no code; only a useInterrupt panel and an App.vue importing a MeetingChat component that is never shown."
    ],
    "block": null,
-   "links": [],
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-19-UseInterrupt",
+     "loom": null,
+     "narration": null
+    }
+   ],
    "review": {
     "verdict": null,
     "approvedAt": null,
@@ -659,15 +666,22 @@
    "child": true,
    "docPath": "human-in-the-loop/headless",
    "reachable": "sidebar",
-   "status": "N/A",
+   "status": "❌",
    "findings": [
     44
    ],
    "notes": [
-    "Note: Not supported for Google Antigravity (the page shows a \"Not supported\" banner)."
+    "Issue: the only code on the page is App.vue importing HeadlessInterruptPanel.vue, which is never shown; the primitives section is text only, so there is nothing to run."
    ],
    "block": null,
-   "links": [],
+   "links": [
+    {
+     "text": null,
+     "clip": "ANTIGRAVITY-vue-20-HeadlessInterrupts",
+     "loom": null,
+     "narration": null
+    }
+   ],
    "review": {
     "verdict": null,
     "approvedAt": null,
