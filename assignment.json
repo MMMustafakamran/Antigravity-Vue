@@ -828,5 +828,6 @@
    },
    "linkedFrom": "quickstart"
   }
- ]
+ ],
+ "quickstartBlocked": "the Vue quickstart is the Antigravity landing page with only Next.js route code; there are no Vue steps, so a reader has no working Vue app to build on"
 }
