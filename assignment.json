@@ -151,7 +151,8 @@
      "text": null,
      "clip": "ANTIGRAVITY-vue-01-Quickstart",
      "loom": "https://www.loom.com/share/f165f2c26f804ef4981f68ef04a26820",
-     "narration": "narration/scripts/ANTIGRAVITY-vue-01-Quickstart.json"
+     "narration": "narration/scripts/ANTIGRAVITY-vue-01-Quickstart.json",
+     "filmed": "2026-11-13"
     }
    ],
    "review": {
@@ -349,7 +350,8 @@
      "text": null,
      "clip": "ANTIGRAVITY-vue-02-FrontendTools",
      "loom": "https://www.loom.com/share/d719fa0afe9e49edae1e215c41fea27d",
-     "narration": null
+     "narration": null,
+     "filmed": "2026-11-09"
     }
    ],
    "review": {
@@ -463,7 +465,8 @@
      "text": null,
      "clip": "ANTIGRAVITY-vue-17-McpApps",
      "loom": "https://www.loom.com/share/d2488f468fbb448487a094ec88c02c25",
-     "narration": null
+     "narration": null,
+     "filmed": "2026-11-12"
     }
    ],
    "review": {
@@ -832,7 +835,8 @@
      "text": null,
      "clip": "ANTIGRAVITY-vue-24-AgenticChatUi",
      "loom": "https://www.loom.com/share/7c074205cc714b5591b2febce22940df",
-     "narration": "narration/scripts/ANTIGRAVITY-vue-24-AgenticChatUi.json"
+     "narration": "narration/scripts/ANTIGRAVITY-vue-24-AgenticChatUi.json",
+     "filmed": "2026-11-12"
     }
    ],
    "review": {
